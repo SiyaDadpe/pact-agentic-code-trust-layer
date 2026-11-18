@@ -1,0 +1,139 @@
+{
+  "generated_at": "2026-11-04T07:19:37.810Z",
+  "csv": "/Users/siya/Desktop/slopsquatting-mjp/analysis/2026-11-04-npmanalysis-accuracy/output/smoke-cases.csv",
+  "results": "/Users/siya/Desktop/slopsquatting-mjp/analysis/2026-11-04-npmanalysis-accuracy/output/check-results.smoke.jsonl",
+  "cases": 4,
+  "case_labels": {
+    "benign": 2,
+    "malicious": 2
+  },
+  "overall_decisions": {
+    "ALLOW": 2,
+    "WARN": 0,
+    "BLOCK": 2,
+    "UNKNOWN": 0
+  },
+  "primary": {
+    "positive_decisions": [
+      "BLOCK"
+    ],
+    "all_cases": {
+      "tp": 2,
+      "fp": 0,
+      "tn": 2,
+      "fn": 0,
+      "total": 4,
+      "precision": 1,
+      "recall": 1,
+      "specificity": 1,
+      "npv": 1,
+      "accuracy": 1,
+      "f1": 1,
+      "balanced_accuracy": 1,
+      "false_positive_rate": 0,
+      "false_negative_rate": 0,
+      "mcc": 1
+    },
+    "covered_cases": {
+      "tp": 2,
+      "fp": 0,
+      "tn": 2,
+      "fn": 0,
+      "total": 4,
+      "precision": 1,
+      "recall": 1,
+      "specificity": 1,
+      "npv": 1,
+      "accuracy": 1,
+      "f1": 1,
+      "balanced_accuracy": 1,
+      "false_positive_rate": 0,
+      "false_negative_rate": 0,
+      "mcc": 1,
+      "coverage": 1,
+      "unknown_excluded": 0
+    },
+    "by_label": {
+      "benign": {
+        "total": 2,
+        "decisions": {
+          "ALLOW": 2,
+          "WARN": 0,
+          "BLOCK": 0,
+          "UNKNOWN": 0
+        }
+      },
+      "malicious": {
+        "total": 2,
+        "decisions": {
+          "ALLOW": 0,
+          "WARN": 0,
+          "BLOCK": 2,
+          "UNKNOWN": 0
+        }
+      }
+    }
+  },
+  "warn_positive": {
+    "positive_decisions": [
+      "BLOCK",
+      "WARN"
+    ],
+    "all_cases": {
+      "tp": 2,
+      "fp": 0,
+      "tn": 2,
+      "fn": 0,
+      "total": 4,
+      "precision": 1,
+      "recall": 1,
+      "specificity": 1,
+      "npv": 1,
+      "accuracy": 1,
+      "f1": 1,
+      "balanced_accuracy": 1,
+      "false_positive_rate": 0,
+      "false_negative_rate": 0,
+      "mcc": 1
+    },
+    "covered_cases": {
+      "tp": 2,
+      "fp": 0,
+      "tn": 2,
+      "fn": 0,
+      "total": 4,
+      "precision": 1,
+      "recall": 1,
+      "specificity": 1,
+      "npv": 1,
+      "accuracy": 1,
+      "f1": 1,
+      "balanced_accuracy": 1,
+      "false_positive_rate": 0,
+      "false_negative_rate": 0,
+      "mcc": 1,
+      "coverage": 1,
+      "unknown_excluded": 0
+    },
+    "by_label": {
+      "benign": {
+        "total": 2,
+        "decisions": {
+          "ALLOW": 2,
+          "WARN": 0,
+          "BLOCK": 0,
+          "UNKNOWN": 0
+        }
+      },
+      "malicious": {
+        "total": 2,
+        "decisions": {
+          "ALLOW": 0,
+          "WARN": 0,
+          "BLOCK": 2,
+          "UNKNOWN": 0
+        }
+      }
+    }
+  }
+}

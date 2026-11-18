@@ -1,0 +1,412 @@
+{
+  "generated_at": "2026-11-04T07:18:04.789Z",
+  "source_repo": "lxyeternal/NPMAnalysis",
+  "source_ref": "main",
+  "folder_trees": {
+    "zip_benign": {
+      "sha": "f768aece85e03879665634ee1e890bee2c463a9f",
+      "truncated": false,
+      "truncation_fallback": false,
+      "entries": 21864,
+      "blobs": 7288,
+      "fetched_at": null
+    },
+    "zip_malware": {
+      "sha": "abd7ef01642c159a50a1a42dca4bca88a7cc42b4",
+      "truncated": false,
+      "truncation_fallback": false,
+      "entries": 17126,
+      "blobs": 6420,
+      "fetched_at": null
+    }
+  },
+  "counts": {
+    "total": 13708,
+    "by_label": {
+      "benign": 7288,
+      "malicious": 6420
+    },
+    "unique_package_names": {
+      "total": 11573,
+      "benign": 7288,
+      "malicious": 4286
+    },
+    "scoped": {
+      "total": 2808,
+      "benign": 2261,
+      "malicious": 547,
+      "structural_failures": 0,
+      "case_only_differences": 1
+    }
+  },
+  "structure": {
+    "issues": [],
+    "noncanonical_file_names": 1465,
+    "noncanonical_file_name_samples": [
+      {
+        "source_path": "Dataset/zip_malware/3a-look/1.0.1/3a-look-1.0.1-11375d72a3f1c7ed97138c09213b602b3caaade6.tgz",
+        "file_name": "3a-look-1.0.1-11375d72a3f1c7ed97138c09213b602b3caaade6.tgz",
+        "expected_by_folder_convention": "3a-look-1.0.1.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/3a-spawn/1.0.1/3a-spawn-1.0.1-0a910f32678ed02a985be47fb71eaf3fed683269.tgz",
+        "file_name": "3a-spawn-1.0.1-0a910f32678ed02a985be47fb71eaf3fed683269.tgz",
+        "expected_by_folder_convention": "3a-spawn-1.0.1.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@0x000000000000000##util/0.1.0/util-0.1.0.tgz",
+        "file_name": "util-0.1.0.tgz",
+        "expected_by_folder_convention": "@0x000000000000000##util-0.1.0.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@0xengine##xmlrpc/1.3.18/2024-10-08-@0xengine_xmlrpc-v1.3.18.tgz",
+        "file_name": "2024-10-08-@0xengine_xmlrpc-v1.3.18.tgz",
+        "expected_by_folder_convention": "@0xengine##xmlrpc-1.3.18.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##account-api-ts-axios-sdk/1.742.1/account-api-ts-axios-sdk-1.742.1.tgz",
+        "file_name": "account-api-ts-axios-sdk-1.742.1.tgz",
+        "expected_by_folder_convention": "@12build##account-api-ts-axios-sdk-1.742.1.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##account-api-ts-axios-sdk/2.743.1/account-api-ts-axios-sdk-2.743.1.tgz",
+        "file_name": "account-api-ts-axios-sdk-2.743.1.tgz",
+        "expected_by_folder_convention": "@12build##account-api-ts-axios-sdk-2.743.1.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##account-api-ts-axios-sdk/3.745.1/account-api-ts-axios-sdk-3.745.1.tgz",
+        "file_name": "account-api-ts-axios-sdk-3.745.1.tgz",
+        "expected_by_folder_convention": "@12build##account-api-ts-axios-sdk-3.745.1.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##account-api-ts-axios-sdk/4.746.1/account-api-ts-axios-sdk-4.746.1.tgz",
+        "file_name": "account-api-ts-axios-sdk-4.746.1.tgz",
+        "expected_by_folder_convention": "@12build##account-api-ts-axios-sdk-4.746.1.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##account-api-ts-axios-sdk/5.747.1/account-api-ts-axios-sdk-5.747.1.tgz",
+        "file_name": "account-api-ts-axios-sdk-5.747.1.tgz",
+        "expected_by_folder_convention": "@12build##account-api-ts-axios-sdk-5.747.1.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##account-api-ts-axios-sdk/6.748.1/account-api-ts-axios-sdk-6.748.1.tgz",
+        "file_name": "account-api-ts-axios-sdk-6.748.1.tgz",
+        "expected_by_folder_convention": "@12build##account-api-ts-axios-sdk-6.748.1.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##product-api-ts-axios-sdk/1.584.2/product-api-ts-axios-sdk-1.584.2.tgz",
+        "file_name": "product-api-ts-axios-sdk-1.584.2.tgz",
+        "expected_by_folder_convention": "@12build##product-api-ts-axios-sdk-1.584.2.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##product-api-ts-axios-sdk/2.585.2/product-api-ts-axios-sdk-2.585.2.tgz",
+        "file_name": "product-api-ts-axios-sdk-2.585.2.tgz",
+        "expected_by_folder_convention": "@12build##product-api-ts-axios-sdk-2.585.2.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##product-api-ts-axios-sdk/3.586.2/product-api-ts-axios-sdk-3.586.2.tgz",
+        "file_name": "product-api-ts-axios-sdk-3.586.2.tgz",
+        "expected_by_folder_convention": "@12build##product-api-ts-axios-sdk-3.586.2.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##product-api-ts-axios-sdk/4.587.2/product-api-ts-axios-sdk-4.587.2.tgz",
+        "file_name": "product-api-ts-axios-sdk-4.587.2.tgz",
+        "expected_by_folder_convention": "@12build##product-api-ts-axios-sdk-4.587.2.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##segment-js-sdk/1.432.3/segment-js-sdk-1.432.3.tgz",
+        "file_name": "segment-js-sdk-1.432.3.tgz",
+        "expected_by_folder_convention": "@12build##segment-js-sdk-1.432.3.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##segment-js-sdk/2.433.3/segment-js-sdk-2.433.3.tgz",
+        "file_name": "segment-js-sdk-2.433.3.tgz",
+        "expected_by_folder_convention": "@12build##segment-js-sdk-2.433.3.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@12build##segment-js-sdk/3.434.3/segment-js-sdk-3.434.3.tgz",
+        "file_name": "segment-js-sdk-3.434.3.tgz",
+        "expected_by_folder_convention": "@12build##segment-js-sdk-3.434.3.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@3p-future-solutions##ember-cui/99.99.99/ember-cui-99.99.99.tgz",
+        "file_name": "ember-cui-99.99.99.tgz",
+        "expected_by_folder_convention": "@3p-future-solutions##ember-cui-99.99.99.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@aaakca##myf/1.0.14/myf-1.0.14.tgz",
+        "file_name": "myf-1.0.14.tgz",
+        "expected_by_folder_convention": "@aaakca##myf-1.0.14.tgz"
+      },
+      {
+        "source_path": "Dataset/zip_malware/@abdallaeg##sap_access/0.0.0/2024-07-11-@abdallaeg_sap_access-v0.0.0.tgz",
+        "file_name": "2024-07-11-@abdallaeg_sap_access-v0.0.0.tgz",
+        "expected_by_folder_convention": "@abdallaeg##sap_access-0.0.0.tgz"
+      }
+    ],
+    "duplicate_source_paths": [],
+    "duplicate_name_versions": []
+  },
+  "package_spec_validation": {
+    "exact": 13678,
+    "case_only_differences": 30,
+    "structural_failures": 0,
+    "case_only_samples": [
+      {
+        "label": "benign",
+        "source_path": "Dataset/zip_benign/@guptasiddhant##theme-manager-js/1.0.0-ALPHA.2/@guptasiddhant##theme-manager-js-1.0.0-ALPHA.2.tgz",
+        "spec": "@guptasiddhant/theme-manager-js@1.0.0-ALPHA.2",
+        "parsed_name": "@guptasiddhant/theme-manager-js",
+        "parsed_version": "1.0.0-alpha.2"
+      },
+      {
+        "label": "benign",
+        "source_path": "Dataset/zip_benign/BetterRegExp/0.0.2/BetterRegExp-0.0.2.tgz",
+        "spec": "BetterRegExp@0.0.2",
+        "parsed_name": "betterregexp",
+        "parsed_version": "0.0.2"
+      },
+      {
+        "label": "benign",
+        "source_path": "Dataset/zip_benign/Dante2/0.5.11/Dante2-0.5.11.tgz",
+        "spec": "Dante2@0.5.11",
+        "parsed_name": "dante2",
+        "parsed_version": "0.5.11"
+      },
+      {
+        "label": "benign",
+        "source_path": "Dataset/zip_benign/Mu/0.0.1/Mu-0.0.1.tgz",
+        "spec": "Mu@0.0.1",
+        "parsed_name": "mu",
+        "parsed_version": "0.0.1"
+      },
+      {
+        "label": "benign",
+        "source_path": "Dataset/zip_benign/ViewAbility/1.0.28/ViewAbility-1.0.28.tgz",
+        "spec": "ViewAbility@1.0.28",
+        "parsed_name": "viewability",
+        "parsed_version": "1.0.28"
+      },
+      {
+        "label": "benign",
+        "source_path": "Dataset/zip_benign/asJam/0.1.6/asJam-0.1.6.tgz",
+        "spec": "asJam@0.1.6",
+        "parsed_name": "asjam",
+        "parsed_version": "0.1.6"
+      },
+      {
+        "label": "benign",
+        "source_path": "Dataset/zip_benign/react-native-MultiSlider/0.2.1/react-native-MultiSlider-0.2.1.tgz",
+        "spec": "react-native-MultiSlider@0.2.1",
+        "parsed_name": "react-native-multislider",
+        "parsed_version": "0.2.1"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/0LknGmQH/axelhowe-0.0.0-0LknGmQH.tgz",
+        "spec": "axelhowe@0LknGmQH",
+        "parsed_name": "axelhowe",
+        "parsed_version": "0lkngmqh"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/5VtLmtixx6V5PkcW/axelhowe-0.0.0-5VtLmtixx6V5PkcW.tgz",
+        "spec": "axelhowe@5VtLmtixx6V5PkcW",
+        "parsed_name": "axelhowe",
+        "parsed_version": "5vtlmtixx6v5pkcw"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/6Wc306Dt/axelhowe-0.0.0-6Wc306Dt.tgz",
+        "spec": "axelhowe@6Wc306Dt",
+        "parsed_name": "axelhowe",
+        "parsed_version": "6wc306dt"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/8yOW2EBicbPwGXc5/axelhowe-0.0.0-8yOW2EBicbPwGXc5.tgz",
+        "spec": "axelhowe@8yOW2EBicbPwGXc5",
+        "parsed_name": "axelhowe",
+        "parsed_version": "8yow2ebicbpwgxc5"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/AH4rx5lCb6fx5eEf/axelhowe-0.0.0-AH4rx5lCb6fx5eEf.tgz",
+        "spec": "axelhowe@AH4rx5lCb6fx5eEf",
+        "parsed_name": "axelhowe",
+        "parsed_version": "ah4rx5lcb6fx5eef"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/BUZKRMES/axelhowe-0.0.0-BUZKRMES.tgz",
+        "spec": "axelhowe@BUZKRMES",
+        "parsed_name": "axelhowe",
+        "parsed_version": "buzkrmes"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/C8RkVSJyKBjj5Bt/axelhowe-0.0.0-C8RkVSJyKBjj5Bvt.tgz",
+        "spec": "axelhowe@C8RkVSJyKBjj5Bt",
+        "parsed_name": "axelhowe",
+        "parsed_version": "c8rkvsjykbjj5bt"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/DsOouxNe/axelhowe-0.0.0-DsOouxNe.tgz",
+        "spec": "axelhowe@DsOouxNe",
+        "parsed_name": "axelhowe",
+        "parsed_version": "dsoouxne"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/PCZIO7pD/axelhowe-0.0.0-PCZIO7pD.tgz",
+        "spec": "axelhowe@PCZIO7pD",
+        "parsed_name": "axelhowe",
+        "parsed_version": "pczio7pd"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/TXPJlRoOV1gAScrG/axelhowe-0.0.0-TXPJlRoOV1gAScrG.tgz",
+        "spec": "axelhowe@TXPJlRoOV1gAScrG",
+        "parsed_name": "axelhowe",
+        "parsed_version": "txpjlroov1gascrg"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/VDhwMArs/axelhowe-0.0.0-VDhwMArs.tgz",
+        "spec": "axelhowe@VDhwMArs",
+        "parsed_name": "axelhowe",
+        "parsed_version": "vdhwmars"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/VSslJhaE/axelhowe-0.0.0-VSslJhaE.tgz",
+        "spec": "axelhowe@VSslJhaE",
+        "parsed_name": "axelhowe",
+        "parsed_version": "vssljhae"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/YVxLqVfX/axelhowe-0.0.0-YVxLqVfX.tgz",
+        "spec": "axelhowe@YVxLqVfX",
+        "parsed_name": "axelhowe",
+        "parsed_version": "yvxlqvfx"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/YlPU22ZQ/axelhowe-0.0.0-YlPU22ZQ.tgz",
+        "spec": "axelhowe@YlPU22ZQ",
+        "parsed_name": "axelhowe",
+        "parsed_version": "ylpu22zq"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/ZPffIoH1/axelhowe-0.0.0-ZPffIoH1.tgz",
+        "spec": "axelhowe@ZPffIoH1",
+        "parsed_name": "axelhowe",
+        "parsed_version": "zpffioh1"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/crLaOTG8/axelhowe-0.0.0-crLaOTG8.tgz",
+        "spec": "axelhowe@crLaOTG8",
+        "parsed_name": "axelhowe",
+        "parsed_version": "crlaotg8"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/dBJ5yPtwPsHAW0U3/axelhowe-0.0.0-dBJ5yPtwPsHAW0U3.tgz",
+        "spec": "axelhowe@dBJ5yPtwPsHAW0U3",
+        "parsed_name": "axelhowe",
+        "parsed_version": "dbj5yptwpshaw0u3"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/j8rEsnCR/axelhowe-0.0.0-j8rEsnCR.tgz",
+        "spec": "axelhowe@j8rEsnCR",
+        "parsed_name": "axelhowe",
+        "parsed_version": "j8resncr"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/lnptqC3x/axelhowe-0.0.0-lnptqC3x.tgz",
+        "spec": "axelhowe@lnptqC3x",
+        "parsed_name": "axelhowe",
+        "parsed_version": "lnptqc3x"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/nHudFp8/axelhowe-0.0.0-nHuvdFp8.tgz",
+        "spec": "axelhowe@nHudFp8",
+        "parsed_name": "axelhowe",
+        "parsed_version": "nhudfp8"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/sGDItU2w/axelhowe-0.0.0-sGDItU2w.tgz",
+        "spec": "axelhowe@sGDItU2w",
+        "parsed_name": "axelhowe",
+        "parsed_version": "sgditu2w"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/suZIJaqI/axelhowe-0.0.0-suZIJaqI.tgz",
+        "spec": "axelhowe@suZIJaqI",
+        "parsed_name": "axelhowe",
+        "parsed_version": "suzijaqi"
+      },
+      {
+        "label": "malicious",
+        "source_path": "Dataset/zip_malware/axelhowe/xKpGaKj5/axelhowe-0.0.0-xKpGaKj5.tgz",
+        "spec": "axelhowe@xKpGaKj5",
+        "parsed_name": "axelhowe",
+        "parsed_version": "xkpgakj5"
+      }
+    ],
+    "structural_failure_samples": []
+  },
+  "current_csv": {
+    "path": "/Users/siya/Desktop/npmanalysis_cases.csv",
+    "rows": 8294,
+    "by_label": {
+      "benign": 7288,
+      "malicious": 1006
+    },
+    "missing_from_csv": 5414,
+    "missing_by_label": {
+      "malicious": 5414
+    },
+    "missing_unique_package_names": 3775,
+    "extra_rows": 0,
+    "overlapping_row_mismatches": {
+      "package_name": {
+        "count": 0,
+        "samples": []
+      },
+      "package_version": {
+        "count": 0,
+        "samples": []
+      },
+      "label": {
+        "count": 0,
+        "samples": []
+      },
+      "archive_size_bytes": {
+        "count": 0,
+        "samples": []
+      }
+    }
+  },
+  "rebuild": {
+    "allowed": true,
+    "blockers": [],
+    "output": {
+      "path": "/Users/siya/Desktop/slopsquatting-mjp/analysis/2026-11-04-npmanalysis-accuracy/output/npmanalysis_cases.rebuilt.csv",
+      "rows": 13708,
+      "by_label": {
+        "benign": 7288,
+        "malicious": 6420
+      }
+    }
+  }
+}

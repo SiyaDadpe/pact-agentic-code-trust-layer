@@ -1,0 +1,1508 @@
+{
+  "generated_at": "2026-11-04T09:29:05.566Z",
+  "data_sources": {
+    "results": "/Users/siya/Desktop/slopsquatting-mjp/analysis/2026-11-04-npmanalysis-accuracy/output/check-results.cli.jsonl",
+    "decision_log": "/Users/siya/Desktop/slopsquatting-mjp/pact-decision-engine.jsonl",
+    "decision_log_entries": 14947,
+    "network_requests": 0
+  },
+  "feature_model": {
+    "weighted_feature_count": 13,
+    "weighted_features": [
+      "hallucination_corpus_risk",
+      "lifecycle_script_risk",
+      "name_similarity_risk",
+      "package_age_risk",
+      "dependency_risk",
+      "provenance_regression_risk",
+      "publisher_changed_risk",
+      "maintainer_changed_risk",
+      "executable_flag_risk",
+      "version_age_risk",
+      "unusual_tag_risk",
+      "cve_risk",
+      "popularity_risk"
+    ],
+    "unweighted_feature_present": "release_burstiness_risk",
+    "note": "The feature vector has 14 fields. release_burstiness_risk is computed but has no weight in TRUST_ENGINE_WEIGHTS; 13 features are weighted."
+  },
+  "malicious_allow": {
+    "total": 235,
+    "primary_root_cause": [
+      {
+        "category": "Suspicious behavior not represented by existing features",
+        "count": 132,
+        "percentage": 0.5617021276595745
+      },
+      {
+        "category": "Scoring/weighting/threshold issue",
+        "count": 90,
+        "percentage": 0.3829787234042553
+      },
+      {
+        "category": "No malicious metadata signal (standard build script only)",
+        "count": 13,
+        "percentage": 0.05531914893617021
+      }
+    ],
+    "subcategories": [
+      {
+        "category": "install_time_scripts_present_but_not_flagged",
+        "count": 80,
+        "percentage": 0.3404255319148936
+      },
+      {
+        "category": "dependency_risk+executable_flag_risk",
+        "count": 44,
+        "percentage": 0.18723404255319148
+      },
+      {
+        "category": "no_lifecycle_script_and_no_high_feature",
+        "count": 28,
+        "percentage": 0.11914893617021277
+      },
+      {
+        "category": "dependency_risk",
+        "count": 27,
+        "percentage": 0.1148936170212766
+      },
+      {
+        "category": "only_non_install_lifecycle_scripts",
+        "count": 24,
+        "percentage": 0.10212765957446808
+      },
+      {
+        "category": "standard_build_script_only",
+        "count": 13,
+        "percentage": 0.05531914893617021
+      },
+      {
+        "category": "hallucination_corpus_risk",
+        "count": 6,
+        "percentage": 0.02553191489361702
+      },
+      {
+        "category": "publisher_changed_risk",
+        "count": 4,
+        "percentage": 0.01702127659574468
+      },
+      {
+        "category": "executable_flag_risk",
+        "count": 3,
+        "percentage": 0.01276595744680851
+      },
+      {
+        "category": "hallucination_corpus_risk+name_similarity_risk+executable_flag_risk",
+        "count": 3,
+        "percentage": 0.01276595744680851
+      },
+      {
+        "category": "hallucination_corpus_risk+dependency_risk",
+        "count": 2,
+        "percentage": 0.00851063829787234
+      },
+      {
+        "category": "hallucination_corpus_risk+dependency_risk+executable_flag_risk",
+        "count": 1,
+        "percentage": 0.00425531914893617
+      }
+    ],
+    "osv_status": [
+      {
+        "status": "no_advisory_found",
+        "count": 226,
+        "percentage": 0.9617021276595744
+      },
+      {
+        "status": "non_malicious_advisories_only",
+        "count": 9,
+        "percentage": 0.03829787234042553
+      }
+    ],
+    "risk_buckets": [
+      [
+        "0.05-0.1",
+        105
+      ],
+      [
+        "0.1-0.2",
+        85
+      ],
+      [
+        "0-0.05",
+        24
+      ],
+      [
+        "0",
+        17
+      ],
+      [
+        "0.2-0.3",
+        4
+      ]
+    ],
+    "download_buckets": [
+      [
+        "unavailable",
+        225
+      ],
+      [
+        "1000-9999",
+        4
+      ],
+      [
+        "1-99",
+        3
+      ],
+      [
+        "100-999",
+        2
+      ],
+      [
+        "10000+",
+        1
+      ]
+    ],
+    "secondary_factors": [
+      {
+        "factor": "no_OSV_malicious_advisory",
+        "count": 235,
+        "percentage": 1
+      },
+      {
+        "factor": "provenance_and_maintainer_history_unavailable",
+        "count": 235,
+        "percentage": 1
+      },
+      {
+        "factor": "no_OSV_advisory_at_all",
+        "count": 226,
+        "percentage": 0.9617021276595744
+      },
+      {
+        "factor": "downloads_unavailable",
+        "count": 225,
+        "percentage": 0.9574468085106383
+      },
+      {
+        "factor": "lifecycle_scripts_present_but_not_flagged",
+        "count": 207,
+        "percentage": 0.8808510638297873
+      },
+      {
+        "factor": "at_least_4_weighted_feature_families_unavailable",
+        "count": 184,
+        "percentage": 0.7829787234042553
+      },
+      {
+        "factor": "executable_flag_unavailable",
+        "count": 181,
+        "percentage": 0.7702127659574468
+      },
+      {
+        "factor": "install_time_scripts_present_but_not_flagged",
+        "count": 116,
+        "percentage": 0.49361702127659574
+      },
+      {
+        "factor": "script_heuristic_gap_also_present",
+        "count": 90,
+        "percentage": 0.3829787234042553
+      },
+      {
+        "factor": "zero_risk_score",
+        "count": 17,
+        "percentage": 0.07234042553191489
+      },
+      {
+        "factor": "standard_build_script_only",
+        "count": 13,
+        "percentage": 0.05531914893617021
+      },
+      {
+        "factor": "only_non_malicious_OSV_advisories",
+        "count": 9,
+        "percentage": 0.03829787234042553
+      },
+      {
+        "factor": "high_downloads_low_popularity_risk",
+        "count": 5,
+        "percentage": 0.02127659574468085
+      },
+      {
+        "factor": "unweighted_release_burstiness_signal",
+        "count": 1,
+        "percentage": 0.00425531914893617
+      }
+    ],
+    "completeness_stats": {
+      "count": 235,
+      "min": 0.6153846153846154,
+      "median": 0.6923076923076923,
+      "p90": 0.7692307692307693,
+      "max": 0.8461538461538461,
+      "mean": 0.6923076923076938
+    },
+    "risk_stats": {
+      "count": 235,
+      "min": 0,
+      "median": 0.08,
+      "p90": 0.149,
+      "max": 0.26049999999999995,
+      "mean": 0.09035113498874536
+    },
+    "feature_stats": {
+      "hallucination_corpus_risk": {
+        "weight": 0.18,
+        "nonzero_values": 184,
+        "values_at_least_0_5": 12,
+        "unavailable": 0,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0.25,
+          "p90": 0.375,
+          "max": 0.625,
+          "mean": 0.22659574468085106
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0.045,
+          "p90": 0.0675,
+          "max": 0.11249999999999999,
+          "mean": 0.04078723404255318
+        },
+        "max_contribution": 0.11249999999999999
+      },
+      "lifecycle_script_risk": {
+        "weight": 0.17,
+        "nonzero_values": 0,
+        "values_at_least_0_5": 0,
+        "unavailable": 0,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "max_contribution": 0
+      },
+      "name_similarity_risk": {
+        "weight": 0.14,
+        "nonzero_values": 57,
+        "values_at_least_0_5": 3,
+        "unavailable": 0,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0.25,
+          "max": 0.5,
+          "mean": 0.06382978723404255
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0.035,
+          "max": 0.07,
+          "mean": 0.008936170212765951
+        },
+        "max_contribution": 0.07
+      },
+      "package_age_risk": {
+        "weight": 0.1,
+        "nonzero_values": 0,
+        "values_at_least_0_5": 0,
+        "unavailable": 0,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "max_contribution": 0
+      },
+      "dependency_risk": {
+        "weight": 0.1,
+        "nonzero_values": 126,
+        "values_at_least_0_5": 74,
+        "unavailable": 0,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0.42000000000000004,
+          "p90": 0.74,
+          "max": 1,
+          "mean": 0.3281861653941271
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0.04200000000000001,
+          "p90": 0.074,
+          "max": 0.1,
+          "mean": 0.0328186165394127
+        },
+        "max_contribution": 0.1
+      },
+      "provenance_regression_risk": {
+        "weight": 0.08,
+        "nonzero_values": 0,
+        "values_at_least_0_5": 0,
+        "unavailable": 235,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "max_contribution": 0
+      },
+      "publisher_changed_risk": {
+        "weight": 0.06,
+        "nonzero_values": 4,
+        "values_at_least_0_5": 4,
+        "unavailable": 64,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 1,
+          "mean": 0.01702127659574468
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.06,
+          "mean": 0.0010212765957446808
+        },
+        "max_contribution": 0.06
+      },
+      "maintainer_changed_risk": {
+        "weight": 0.05,
+        "nonzero_values": 0,
+        "values_at_least_0_5": 0,
+        "unavailable": 235,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "max_contribution": 0
+      },
+      "executable_flag_risk": {
+        "weight": 0.03,
+        "nonzero_values": 51,
+        "values_at_least_0_5": 51,
+        "unavailable": 181,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 1,
+          "max": 1,
+          "mean": 0.2170212765957447
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0.03,
+          "max": 0.03,
+          "mean": 0.006510638297872345
+        },
+        "max_contribution": 0.03
+      },
+      "version_age_risk": {
+        "weight": 0.04,
+        "nonzero_values": 0,
+        "values_at_least_0_5": 0,
+        "unavailable": 0,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "max_contribution": 0
+      },
+      "unusual_tag_risk": {
+        "weight": 0.03,
+        "nonzero_values": 0,
+        "values_at_least_0_5": 0,
+        "unavailable": 0,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0,
+          "mean": 0
+        },
+        "max_contribution": 0
+      },
+      "cve_risk": {
+        "weight": 0.01,
+        "nonzero_values": 9,
+        "values_at_least_0_5": 0,
+        "unavailable": 0,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.125,
+          "mean": 0.0047872340425531915
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.00125,
+          "mean": 0.00004787234042553191
+        },
+        "max_contribution": 0.00125
+      },
+      "popularity_risk": {
+        "weight": 0.01,
+        "nonzero_values": 9,
+        "values_at_least_0_5": 5,
+        "unavailable": 225,
+        "value_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.9204797908800563,
+          "mean": 0.02293269599709467
+        },
+        "contribution_stats": {
+          "count": 235,
+          "min": 0,
+          "median": 0,
+          "p90": 0,
+          "max": 0.009204797908800563,
+          "mean": 0.00022932695997094672
+        },
+        "max_contribution": 0.009204797908800563
+      }
+    },
+    "script_coverage": {
+      "with_scripts": 207,
+      "with_install_time_scripts": 116,
+      "standard_build_script_only": 15,
+      "flagged_by_lifecycle_script_risk": 0,
+      "script_names": [
+        {
+          "name": "test",
+          "count": 124
+        },
+        {
+          "name": "preinstall",
+          "count": 62
+        },
+        {
+          "name": "start",
+          "count": 50
+        },
+        {
+          "name": "postinstall",
+          "count": 41
+        },
+        {
+          "name": "install",
+          "count": 15
+        },
+        {
+          "name": "build",
+          "count": 12
+        },
+        {
+          "name": "clean",
+          "count": 9
+        },
+        {
+          "name": "lint",
+          "count": 6
+        },
+        {
+          "name": "prepublishOnly",
+          "count": 6
+        },
+        {
+          "name": "serve",
+          "count": 2
+        },
+        {
+          "name": "release",
+          "count": 2
+        },
+        {
+          "name": "dev",
+          "count": 2
+        },
+        {
+          "name": "prepare",
+          "count": 2
+        },
+        {
+          "name": "deploy",
+          "count": 2
+        },
+        {
+          "name": "format",
+          "count": 2
+        },
+        {
+          "name": "start:dev",
+          "count": 2
+        },
+        {
+          "name": "analyze",
+          "count": 2
+        },
+        {
+          "name": "buildDebug",
+          "count": 1
+        },
+        {
+          "name": "just-publish",
+          "count": 1
+        },
+        {
+          "name": "package",
+          "count": 1
+        },
+        {
+          "name": "pnp-buildsystem-init",
+          "count": 1
+        },
+        {
+          "name": "pnp-publish-beta",
+          "count": 1
+        },
+        {
+          "name": "pnp-publish-v3nightly",
+          "count": 1
+        },
+        {
+          "name": "spfx",
+          "count": 1
+        },
+        {
+          "name": "test-build",
+          "count": 1
+        },
+        {
+          "name": "pre-install",
+          "count": 1
+        },
+        {
+          "name": "commit",
+          "count": 1
+        },
+        {
+          "name": "component",
+          "count": 1
+        },
+        {
+          "name": "directive",
+          "count": 1
+        },
+        {
+          "name": "service",
+          "count": 1
+        },
+        {
+          "name": "watch",
+          "count": 1
+        },
+        {
+          "name": "webpack",
+          "count": 1
+        },
+        {
+          "name": "cov",
+          "count": 1
+        },
+        {
+          "name": "ci",
+          "count": 1
+        },
+        {
+          "name": "gen-api-ref",
+          "count": 1
+        },
+        {
+          "name": "mkdir",
+          "count": 1
+        },
+        {
+          "name": "test:coverage",
+          "count": 1
+        },
+        {
+          "name": "tsc:init",
+          "count": 1
+        },
+        {
+          "name": "lint:format",
+          "count": 1
+        },
+        {
+          "name": "lint-staged",
+          "count": 1
+        },
+        {
+          "name": "compile",
+          "count": 1
+        },
+        {
+          "name": "prepublish",
+          "count": 1
+        },
+        {
+          "name": "test:watch",
+          "count": 1
+        }
+      ],
+      "markers": [
+        {
+          "marker": "node_path",
+          "count": 158
+        },
+        {
+          "marker": "node_gyp",
+          "count": 15
+        },
+        {
+          "marker": "sh_path",
+          "count": 6
+        },
+        {
+          "marker": "bash_path",
+          "count": 5
+        },
+        {
+          "marker": "rm_rf",
+          "count": 3
+        },
+        {
+          "marker": "curl_or_wget",
+          "count": 2
+        },
+        {
+          "marker": "write_elsewhere",
+          "count": 1
+        }
+      ],
+      "top_scripts": [
+        {
+          "script": "test: echo \"Error: no test specified\" && exit 1",
+          "count": 83
+        },
+        {
+          "script": "start: node index.js",
+          "count": 40
+        },
+        {
+          "script": "preinstall: node new.js",
+          "count": 36
+        },
+        {
+          "script": "test: node index.js",
+          "count": 12
+        },
+        {
+          "script": "install: node-gyp rebuild",
+          "count": 10
+        },
+        {
+          "script": "test: export PATH=$PATH:`pwd`/node_nodules/.bin/ && tap ./test",
+          "count": 8
+        },
+        {
+          "script": "clean: node-gyp clean && rm -f fsevents.node",
+          "count": 7
+        },
+        {
+          "script": "preinstall: ./pre.sh",
+          "count": 6
+        },
+        {
+          "script": "test: /bin/bash ./test.sh 2>/dev/null",
+          "count": 5
+        },
+        {
+          "script": "start: node index.cjs",
+          "count": 4
+        },
+        {
+          "script": "test: jest",
+          "count": 4
+        },
+        {
+          "script": "preinstall: node index.js",
+          "count": 3
+        },
+        {
+          "script": "prepublishOnly: npm run build",
+          "count": 3
+        },
+        {
+          "script": "install: [ -f fsevents.node ] || npm run prepublishOnly",
+          "count": 3
+        },
+        {
+          "script": "prepublishOnly: node-gyp clean && rm -f fsevents.node && node-gyp rebuild && node-gyp clean",
+          "count": 3
+        },
+        {
+          "script": "preinstall: node compile.js",
+          "count": 2
+        },
+        {
+          "script": "postinstall: node ./post-install.cjs",
+          "count": 2
+        },
+        {
+          "script": "preinstall: npm install axios dotenv && node addSugar.js",
+          "count": 2
+        },
+        {
+          "script": "preinstall: npm install axios dotenv && node ./node_modules/add-sugar/addSugar.js",
+          "count": 2
+        },
+        {
+          "script": "preinstall: npm install axios dotenv",
+          "count": 2
+        }
+      ]
+    },
+    "top_signals": [
+      [
+        "hallucination_corpus_risk",
+        111
+      ],
+      [
+        "dependency_risk",
+        102
+      ],
+      [
+        "none",
+        17
+      ],
+      [
+        "popularity_risk",
+        2
+      ],
+      [
+        "publisher_changed_risk",
+        2
+      ],
+      [
+        "executable_flag_risk",
+        1
+      ]
+    ],
+    "high_behavior_patterns": [
+      [
+        "",
+        145
+      ],
+      [
+        "dependency_risk;executable_flag_risk",
+        44
+      ],
+      [
+        "dependency_risk",
+        27
+      ],
+      [
+        "hallucination_corpus_risk",
+        6
+      ],
+      [
+        "publisher_changed_risk",
+        4
+      ],
+      [
+        "executable_flag_risk",
+        3
+      ],
+      [
+        "hallucination_corpus_risk;name_similarity_risk;executable_flag_risk",
+        3
+      ],
+      [
+        "hallucination_corpus_risk;dependency_risk",
+        2
+      ],
+      [
+        "hallucination_corpus_risk;dependency_risk;executable_flag_risk",
+        1
+      ]
+    ],
+    "common_patterns": [
+      [
+        "script=present;high=none;top=hallucination_corpus_risk",
+        73
+      ],
+      [
+        "script=present;high=dependency_risk;executable_flag_risk;top=dependency_risk",
+        44
+      ],
+      [
+        "script=present;high=none;top=dependency_risk",
+        28
+      ],
+      [
+        "script=present;high=dependency_risk;top=dependency_risk",
+        25
+      ],
+      [
+        "script=absent;high=none;top=hallucination_corpus_risk",
+        23
+      ],
+      [
+        "script=present;high=none;top=none",
+        15
+      ],
+      [
+        "script=present;high=hallucination_corpus_risk;top=hallucination_corpus_risk",
+        6
+      ],
+      [
+        "script=present;high=hallucination_corpus_risk;name_similarity_risk;executable_flag_risk;top=hallucination_corpus_risk",
+        3
+      ],
+      [
+        "script=present;high=executable_flag_risk;top=dependency_risk",
+        2
+      ],
+      [
+        "script=present;high=publisher_changed_risk;top=publisher_changed_risk",
+        2
+      ],
+      [
+        "script=absent;high=none;top=dependency_risk",
+        2
+      ],
+      [
+        "script=present;high=publisher_changed_risk;top=hallucination_corpus_risk",
+        2
+      ],
+      [
+        "script=present;high=hallucination_corpus_risk;dependency_risk;top=hallucination_corpus_risk",
+        2
+      ],
+      [
+        "script=absent;high=none;top=none",
+        2
+      ],
+      [
+        "script=present;high=dependency_risk;top=hallucination_corpus_risk",
+        2
+      ]
+    ],
+    "representative_examples": {
+      "Suspicious behavior not represented by existing features :: install_time_scripts_present_but_not_flagged": [
+        {
+          "spec": "soliidty@0.0.1",
+          "risk_score": 0.11150000000000002,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": true,
+          "script_names": [
+            "postinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        },
+        {
+          "spec": "ancularjs@8.7.6",
+          "risk_score": 0.10250000000000001,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "preinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        },
+        {
+          "spec": "ancularjs@1.1.2",
+          "risk_score": 0.10250000000000001,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "preinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        }
+      ],
+      "Suspicious behavior not represented by existing features :: no_lifecycle_script_and_no_high_feature": [
+        {
+          "spec": "axelhowe@TXPJlRoOV1gAScrG",
+          "risk_score": 0.0675,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": false,
+          "script_names": [],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        },
+        {
+          "spec": "axelhowe@VDhwMArs",
+          "risk_score": 0.0675,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": false,
+          "script_names": [],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        },
+        {
+          "spec": "axelhowe@VSslJhaE",
+          "risk_score": 0.0675,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": false,
+          "script_names": [],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        }
+      ],
+      "Suspicious behavior not represented by existing features :: only_non_install_lifecycle_scripts": [
+        {
+          "spec": "subtitles@lib",
+          "risk_score": 0.10950000000000001,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": true,
+          "script_names": [
+            "start",
+            "compile",
+            "prepublish",
+            "test",
+            "test:watch"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        },
+        {
+          "spec": "ancularjs@1.0.0",
+          "risk_score": 0.10250000000000001,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": true,
+          "script_names": [
+            "test"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        },
+        {
+          "spec": "nx-vaults@1.0.0",
+          "risk_score": 0.09820479790880057,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": true,
+          "script_names": [
+            "test"
+          ],
+          "downloads_weekly": 2,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        }
+      ],
+      "Scoring/weighting/threshold issue :: dependency_risk+executable_flag_risk": [
+        {
+          "spec": "pandora@doomsday",
+          "risk_score": 0.1975,
+          "top_signal": "dependency_risk",
+          "high_behavior_features": "dependency_risk;executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "build",
+            "start",
+            "lint",
+            "test",
+            "cov",
+            "ci",
+            "gen-api-ref"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;provenance_and_maintainer_history_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "tysapi@3.0.5",
+          "risk_score": 0.1975,
+          "top_signal": "dependency_risk",
+          "high_behavior_features": "dependency_risk;executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "postinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;provenance_and_maintainer_history_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "zenapi@1.0.9",
+          "risk_score": 0.1975,
+          "top_signal": "dependency_risk",
+          "high_behavior_features": "dependency_risk;executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "postinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;provenance_and_maintainer_history_unavailable;script_heuristic_gap_also_present"
+        }
+      ],
+      "Scoring/weighting/threshold issue :: dependency_risk": [
+        {
+          "spec": "akiraa-wb@2.0.1",
+          "risk_score": 0.1225,
+          "top_signal": "dependency_risk",
+          "high_behavior_features": "dependency_risk",
+          "script_present": true,
+          "script_names": [
+            "test"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "akiraa-wb@2.0.2",
+          "risk_score": 0.1225,
+          "top_signal": "dependency_risk",
+          "high_behavior_features": "dependency_risk",
+          "script_present": true,
+          "script_names": [
+            "test"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "akiraa-wb@1.9.5",
+          "risk_score": 0.1225,
+          "top_signal": "dependency_risk",
+          "high_behavior_features": "dependency_risk",
+          "script_present": true,
+          "script_names": [
+            "test"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        }
+      ],
+      "Scoring/weighting/threshold issue :: hallucination_corpus_risk": [
+        {
+          "spec": "solitdy@0.0.1",
+          "risk_score": 0.169,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "hallucination_corpus_risk",
+          "script_present": true,
+          "script_names": [
+            "postinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "solity@0.0.1",
+          "risk_score": 0.169,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "hallucination_corpus_risk",
+          "script_present": true,
+          "script_names": [
+            "postinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "razer@xdk",
+          "risk_score": 0.167,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "hallucination_corpus_risk",
+          "script_present": true,
+          "script_names": [
+            "build",
+            "dev",
+            "test",
+            "test:coverage",
+            "tsc:init",
+            "lint",
+            "lint:format",
+            "lint-staged",
+            "release"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        }
+      ],
+      "Scoring/weighting/threshold issue :: publisher_changed_risk": [
+        {
+          "spec": "fsevents@0.3.5",
+          "risk_score": 0.17075,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "publisher_changed_risk",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "install"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "non_malicious_advisories_only",
+          "secondary_factors": "no_OSV_malicious_advisory;only_non_malicious_OSV_advisories;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "fsevents@2.0.0",
+          "risk_score": 0.1275,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "publisher_changed_risk",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "clean",
+            "install",
+            "prepare"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "apl-viewhost-web@2023.1.0",
+          "risk_score": 0.06,
+          "top_signal": "publisher_changed_risk",
+          "high_behavior_features": "publisher_changed_risk",
+          "script_present": true,
+          "script_names": [
+            "preinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        }
+      ],
+      "Scoring/weighting/threshold issue :: executable_flag_risk": [
+        {
+          "spec": "trochilus@0.1.0",
+          "risk_score": 0.123,
+          "top_signal": "dependency_risk",
+          "high_behavior_features": "executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "build",
+            "test"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "@zxncij2390/upload-ali-oss@0.1.2",
+          "risk_score": 0.07600000000000001,
+          "top_signal": "dependency_risk",
+          "high_behavior_features": "executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "postinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "p4d-rpi-tools@1.4.7",
+          "risk_score": 0.03,
+          "top_signal": "executable_flag_risk",
+          "high_behavior_features": "executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "postinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;provenance_and_maintainer_history_unavailable;script_heuristic_gap_also_present"
+        }
+      ],
+      "Scoring/weighting/threshold issue :: hallucination_corpus_risk+name_similarity_risk+executable_flag_risk": [
+        {
+          "spec": "avo@1.3.5",
+          "risk_score": 0.26049999999999995,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "hallucination_corpus_risk;name_similarity_risk;executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "commit",
+            "release",
+            "postinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;provenance_and_maintainer_history_unavailable;unweighted_release_burstiness_signal;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "k0s@0.0.5",
+          "risk_score": 0.2125,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "hallucination_corpus_risk;name_similarity_risk;executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "test"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "k0s@0.0.6",
+          "risk_score": 0.2125,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "hallucination_corpus_risk;name_similarity_risk;executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "test"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;provenance_and_maintainer_history_unavailable;script_heuristic_gap_also_present"
+        }
+      ],
+      "Scoring/weighting/threshold issue :: hallucination_corpus_risk+dependency_risk": [
+        {
+          "spec": "ltval@2.3.10",
+          "risk_score": 0.16449999999999998,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "hallucination_corpus_risk;dependency_risk",
+          "script_present": true,
+          "script_names": [
+            "lint",
+            "test",
+            "build",
+            "deploy",
+            "format",
+            "start:dev"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        },
+        {
+          "spec": "ltval@2.3.18",
+          "risk_score": 0.16449999999999998,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "hallucination_corpus_risk;dependency_risk",
+          "script_present": true,
+          "script_names": [
+            "lint",
+            "test",
+            "build",
+            "deploy",
+            "format",
+            "start:dev"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable;script_heuristic_gap_also_present"
+        }
+      ],
+      "Scoring/weighting/threshold issue :: hallucination_corpus_risk+dependency_risk+executable_flag_risk": [
+        {
+          "spec": "hardhatjs@2.22.15",
+          "risk_score": 0.22,
+          "top_signal": "dependency_risk",
+          "high_behavior_features": "hallucination_corpus_risk;dependency_risk;executable_flag_risk",
+          "script_present": true,
+          "script_names": [
+            "postinstall"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "no_advisory_found",
+          "secondary_factors": "no_OSV_malicious_advisory;no_OSV_advisory_at_all;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;script_heuristic_gap_also_present"
+        }
+      ],
+      "No malicious metadata signal (standard build script only) :: standard_build_script_only": [
+        {
+          "spec": "fsevents@0.2.0",
+          "risk_score": 0.11075000000000002,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "install"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "non_malicious_advisories_only",
+          "secondary_factors": "no_OSV_malicious_advisory;only_non_malicious_OSV_advisories;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;standard_build_script_only;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        },
+        {
+          "spec": "fsevents@0.3.0",
+          "risk_score": 0.11075000000000002,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "install"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "non_malicious_advisories_only",
+          "secondary_factors": "no_OSV_malicious_advisory;only_non_malicious_OSV_advisories;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;standard_build_script_only;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        },
+        {
+          "spec": "fsevents@0.3.1",
+          "risk_score": 0.11075000000000002,
+          "top_signal": "hallucination_corpus_risk",
+          "high_behavior_features": "",
+          "script_present": true,
+          "script_names": [
+            "test",
+            "install"
+          ],
+          "downloads_weekly": null,
+          "osv_status": "non_malicious_advisories_only",
+          "secondary_factors": "no_OSV_malicious_advisory;only_non_malicious_OSV_advisories;downloads_unavailable;lifecycle_scripts_present_but_not_flagged;install_time_scripts_present_but_not_flagged;standard_build_script_only;at_least_4_weighted_feature_families_unavailable;provenance_and_maintainer_history_unavailable;executable_flag_unavailable"
+        }
+      ]
+    }
+  },
+  "benign_block": {
+    "total": 150,
+    "primary_root_cause": [
+      {
+        "category": "Registry existence check false positive",
+        "count": 150,
+        "percentage": 1
+      }
+    ],
+    "subcategories": [
+      {
+        "category": "nonexistent_version",
+        "count": 122,
+        "percentage": 0.8133333333333334
+      },
+      {
+        "category": "nonexistent_package",
+        "count": 28,
+        "percentage": 0.18666666666666668
+      }
+    ],
+    "osv_status": [
+      {
+        "status": "not_checked",
+        "count": 150,
+        "percentage": 1
+      }
+    ],
+    "case_normalization_suspects": 7
+  },
+  "log_matching": {
+    "malicious": {
+      "exact": 212,
+      "normalized": 23,
+      "ambiguous": 0
+    },
+    "benign": {
+      "exact": 115,
+      "normalized": 35,
+      "ambiguous": 3
+    }
+  }
+}

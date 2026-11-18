@@ -1,0 +1,5 @@
+package_name,package_version,label,source_path,archive_size_bytes
+10print,2.0.0,benign,Dataset/zip_benign/10print/2.0.0/10print-2.0.0.tgz,3426
+1nuage2mots,0.2.0,benign,Dataset/zip_benign/1nuage2mots/0.2.0/1nuage2mots-0.2.0.tgz,5008
+zzz-hello,1.0.2,malicious,Dataset/zip_malware/zzz-hello/1.0.2/zzz-hello-1.0.2.tgz,511
+zzz-hello,1.0.3,malicious,Dataset/zip_malware/zzz-hello/1.0.3/zzz-hello-1.0.3.tgz,521

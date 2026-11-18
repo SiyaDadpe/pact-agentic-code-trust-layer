@@ -1,0 +1,134 @@
+PACT Accuracy Improvement Scope
+
+Prepared from the 13,708-case baseline evaluation and the full per-case decision log. No production code, weights, thresholds, or dataset labels were changed.
+The baseline contains 6,420 malicious cases and 7,288 benign cases. The headline result is 97.09% accuracy, 97.63% precision, 96.12% recall, 97.94% specificity, 0.9687 F1 and 0.9416 MCC, with 6,171 true positives, 150 false positives, 7,138 true negatives and 249 false negatives. That headline hides two very different problems, because most of the malicious blocks come from the registry-existence check rather than from the risk score.
+
+1. The headline metric is mostly an existence-check result
+
+Of the 6,171 malicious cases that were blocked, 6,040 were blocked because the package or version was not found in the registry. Only 131 existing malicious packages were blocked by the risk score. The remaining 249 existing malicious packages were missed: 235 were ALLOW and 14 were WARN.
+That means the score-based performance on existing packages is much weaker than the overall number suggests. There are 380 existing malicious packages in the dataset and 7,138 existing benign packages. If BLOCK is treated as the positive decision, score-based recall is only 34.47% (131 of 380), with 0 benign blocks and 249 missed malicious packages. If WARN and BLOCK are both treated as positive, recall rises to 38.16% (145 of 380), but 35 benign packages also receive WARN.
+This is the most important framing issue in the whole evaluation. Existence failures and risk-score failures need to be measured and reported separately. Otherwise the team will believe the scoring model is better than it is, and improvements to the score will look smaller than they really are.
+
+2. Lifecycle script detection is the largest feature gap
+
+There are 207 malicious ALLOW cases with at least one lifecycle script, and 116 of them have an install-time script such as preinstall, install, postinstall or prepare. Despite that, lifecycle_script_risk is 0 for all 235 malicious ALLOW cases. The feature never fired.
+The current check is binary and regex-based. It catches some patterns such as curl, wget, bash -c, sh -c, chmod +x, base64 -d, eval and a few Node setup/install script names. It does not catch several common execution forms seen in this dataset:
+- preinstall: node new.js appeared 36 times.
+- preinstall: ./pre.sh appeared 6 times.
+- preinstall: node index.js and similar direct Node paths appeared in several cases.
+- postinstall: node <random>.cjs appeared repeatedly, often with generated file names.
+- One payload used pwd > /tmp/asda; sh ../../../public/uploads/1.sh > ../../../public/result.txt, which is clearly execution but was not flagged.
+- Some scripts used sh <path> or bash <path> rather than sh -c or bash -c.
+
+At the same time, not every install-time script should be treated as malicious. Fifteen of the 235 cases use only standard build scripts such as node-gyp rebuild, and 13 of those also have no high-behavior feature; those are mostly fsevents versions. A naive expansion that flags every script would create new false positives.
+The improvement scope here is not just another regex. The script feature needs to parse commands and classify behaviour. It should identify the lifecycle phase, the interpreter, the script path, whether the script downloads or writes outside the package, whether it invokes a shell or child process, and whether the command is a standard build step. Install-time scripts should be separated from test, start, lint and other non-install scripts. The output should probably be a graded risk rather than a single binary value, and standard build scripts should have an explicit allowlist path.
+
+3. Missing feature values are being treated as zero risk
+
+For the 235 malicious ALLOW cases, evidence completeness ranges from 0.615 to 0.846, with a median of 0.692. That means roughly four to five of the thirteen weighted features are unavailable for a typical case. The largest gaps are:
+- Provenance and maintainer history were unavailable for all 235 cases.
+- Downloads were unavailable for 225 cases.
+- Executable-flag evidence was unavailable for 181 cases.
+- Publisher-change evidence was unavailable for 64 cases.
+- 184 cases had at least four weighted feature families unavailable.
+
+The scoring code sums weights multiplied by feature values, and a missing feature is read as zero. Completeness is calculated and used for confidence, but it does not change the risk sum. In practice, missing evidence makes a package look safer.
+This is a systemic design problem. A package with four unavailable features can still receive an ALLOW because the missing evidence contributes nothing. The model needs a missingness-aware score: either renormalise the weights over the features that are actually available, add a penalty for missing high-value evidence, or require a minimum evidence level before returning ALLOW. It should also distinguish known-benign evidence from unknown evidence instead of collapsing both into zero.
+
+4. The score weights and thresholds are too weak for the high-signal cases
+
+Ninety of the 235 malicious ALLOW cases had at least one behaviour feature at or above 0.5, but the highest score among all 235 was only 0.2605, well below the WARN threshold of 0.4 and far below the BLOCK threshold of 0.75. Seventeen cases had a risk score of exactly zero. The other 145 cases had no behaviour feature at or above 0.5: 132 were the behaviour-coverage cases and 13 were the standard-build-only cases.
+The most common high-signal patterns were:
+
+- dependency_risk plus executable_flag_risk: 44 cases.
+- dependency_risk only: 27 cases.
+- hallucination_corpus_risk only: 6 cases.
+- publisher_changed_risk only: 4 cases.
+- executable_flag_risk only: 3 cases.
+- hallucination_corpus_risk plus name_similarity_risk plus executable_flag_risk: 3 cases.
+- Smaller combinations made up the rest.
+
+The current weights are: hallucination 0.18, lifecycle script 0.17, name similarity 0.14, package age 0.10, dependency 0.10, provenance regression 0.08, publisher change 0.06, maintainer change 0.05, executable flag 0.03, version age 0.04, unusual tag 0.03, CVE 0.01 and popularity 0.01.
+Those weights make some strong signals ineffective. A dependency_risk of 0.8 contributes only 0.08. An executable_flag_risk of 1.0 contributes only 0.03. Even a maximum hallucination contribution was only 0.1125 in this set, and the maximum name-similarity contribution was 0.07. Several combinations of strong signals still cannot reach 0.4.
+Lowering the threshold is not a safe substitute. A sweep that treats risk greater than or equal to the threshold as a block, run on the 380 existing malicious and 7,138 existing benign packages, shows the trade-off:
+
+- At 0.40, the model catches 131 of 380 malicious packages (34.5%) with 0 benign blocks.
+- At 0.30, it catches 136 of 380 (35.8%) with 2 benign blocks.
+- At 0.25, it catches 140 of 380 (36.8%) with 19 benign blocks.
+- At 0.20, it catches 146 of 380 (38.4%) with 102 benign blocks.
+- At 0.10, it catches 234 of 380 (61.6%) with 811 benign blocks.
+
+In other words, small threshold reductions barely improve recall, while larger reductions cause a large increase in benign false positives. The real improvement has to come from better features, better feature combinations and calibrated weights, not from moving the threshold down.
+
+5. Existence handling is a separate problem from malicious scoring
+
+All 150 benign BLOCK cases are registry-existence false positives. Of those, 122 are nonexistent versions and 28 are nonexistent packages. Seven of the 150 overlap with case-normalisation behaviour in package-spec parsing. These are not cases where the risk model incorrectly decided that a benign package was malicious; they are cases where the registry lookup failed and the policy treated that failure as a block.
+This should be a separate product state and a separate reason code. A package that cannot be verified as existing is not the same as a package that has been assessed as malicious. The engine should record whether the registry returned a package, returned a package but not the requested version, or returned a retryable error. If the policy still wants to block in some of those cases, the reason should be explicit and the evaluation should count it separately.
+The same separation matters for malicious cases. The 6,040 existence-based malicious blocks are useful for a malware corpus, but they should not be presented as evidence that the risk model is strong. The risk model should be evaluated on the 380 existing malicious and 7,138 existing benign packages.
+
+6. OSV and the external signals are not helping these cases
+
+OSV lookups completed successfully for all 235 malicious ALLOW cases. There were no OSV lookup failures. OSV returned no malicious advisory for any of them: 226 had no advisories at all, and 9 had only non-malicious advisories. So the absence of an OSV advisory is universal in this set, but it is not a scoring bug and it is not a signal that can separate these cases from benign packages.
+Popularity is also not a credible primary cause. Downloads were unavailable for 225 of the 235 cases, and only 5 cases had high downloads with low popularity risk. The popularity weight is 0.01, so its maximum possible contribution is 0.01. Increasing that weight would not solve the problem and could make the model trust popular packages more than it should.
+Release burstiness is computed but has no weight. Only one case had a nonzero value, and that value was 0.02. The feature is currently dead weight in the pipeline.
+The improvement scope for external signals is therefore about data collection and evidence quality, not about adding another weak weight. If the team can collect downloads, provenance, maintainer history and version history reliably, those features become usable. If not, the scoring logic must explicitly treat them as unknown.
+
+7. Dataset quality needs an audit
+
+Thirteen malicious ALLOW cases use only standard build scripts such as node-gyp rebuild and also have no high-behavior feature. These are mostly fsevents versions. Their metadata does not contain a convincing malicious signal, and the script heuristic was correct not to flag a standard build step. That does not prove the labels are wrong, but it does mean those cases need manual review.
+The seven benign BLOCK cases that overlap with case normalisation also need review. They should be checked against the original package names and versions to determine whether the failure comes from dataset naming, parser normalisation, registry removal, or a genuine missing version.
+The broader recommendation is to audit a sample of both labels, especially cases where the metadata looks benign but the label is malicious, and cases where the metadata looks risky but the label is benign. The audit should record the evidence used and should not rely on the risk score itself.
+
+8. Logging and evidence preservation need to be fixed first
+
+The current decision log preserves feature vectors and metadata snapshots, which made this analysis possible, but it does not preserve several pieces of evidence needed for a complete root-cause review:
+
+- Exact first-publish and version-publish timestamps are not preserved. The snapshot's published_at field was null for all 235 malicious ALLOW cases, even though age features were available.
+- Full version publish history is not preserved, so release burstiness cannot be audited after the fact.
+- Full maintainer and publisher history is not preserved, so provenance and publisher-change features cannot be reconstructed.
+- The raw registry response status and retry history are not stored in a way that distinguishes registry drift from parser normalisation.
+- The weights and thresholds used for the run are not embedded in each decision record.
+
+Before changing the model, the team should make the decision log complete enough to answer why a case was missed six months later. That means logging normalized metadata, raw timestamps, version history, maintainer and publisher history, script contents, feature availability, OSV raw results, registry status, and the exact model configuration for the run.
+
+9. Evaluation methodology needs to change
+
+The current evaluation should be split into at least three views:
+
+- Existence-only performance: how well the engine detects missing packages and missing versions.
+- Score-only performance on existing packages: how well the risk model separates malicious from benign when the package exists.
+- End-to-end performance: the combination of both, reported with reason codes.
+
+The score-only view should also be stratified by script presence, install-time script presence, evidence completeness, scoped versus unscoped packages, package age, and whether OSV or downloads were available. Confidence calibration should be evaluated separately from the decision threshold.
+The 235 ALLOW and 14 WARN cases should be reported together as missed existing malicious packages, while the 131 score-based BLOCK cases should be reported as caught existing malicious packages. The 150 benign BLOCK cases should not be included in the score-only false-positive rate because they never reached the score.
+
+10. Recommended phased work plan
+
+Phase 0, before model changes: separate the evaluation, add reason codes, improve logging, and audit the 13 standard-build cases and the 7 normalisation cases. This is low risk and makes every later change measurable.
+Phase 1, low-risk feature work: replace the binary script check with a parser and classifier, separate install-time scripts from test/start/build scripts, add a standard-build allowlist, and add regression fixtures for node new.js, ./pre.sh, sh <path>, random postinstall .cjs files, node-gyp rebuild, and non-install scripts.
+Phase 2, scoring calibration: introduce missingness-aware scoring, renormalise or penalise unavailable features, add explicit combination rules for high-signal patterns such as dependency plus executable plus hallucination, and calibrate weights and thresholds on a holdout set. Do not ship threshold changes without the score-only evaluation.
+Phase 3, data and external signals: fix downloads collection, provenance history, maintainer history and version history. If tarball inspection is allowed, add static inspection of install scripts in a sandbox without executing them. Keep OSV as an external signal but do not rely on it to catch this class of case.
+Phase 4, product behaviour: separate unverifiable or nonexistent packages from malicious packages in the user-facing reason, decide whether those cases should be BLOCK or a review state, and add an explicit unknown/insufficient-evidence state instead of returning ALLOW when the evidence is too thin.
+
+11. What not to do
+
+Do not lower the block threshold as the primary fix. At 0.20 it adds 102 benign blocks, and at 0.10 it adds 811, while recall only rises from 34.5% to 38.4% and 61.6% respectively.
+Do not treat every lifecycle script as malicious. Fifteen of the 235 cases use only standard build scripts, and 13 of those have no high-behavior feature; flagging all install scripts would create avoidable false positives.
+Do not keep scoring missing features as zero. That is the mechanism that lets a package with four unavailable features look safe.
+Do not present existence-based blocks as score-based detections. The two are different capabilities and need different metrics.
+Do not use OSV absence as evidence that a package is safe. In this dataset all 235 missed cases had no malicious OSV advisory.
+
+12. Success measures for the next iteration
+
+The most useful measures are:
+
+- Existing-malicious score recall at BLOCK, currently 34.47% (131 of 380).
+- Existing-malicious recall when WARN and BLOCK are both counted, currently 38.16% (145 of 380).
+- Existing-benign score false-positive rate at BLOCK, currently 0 of 7,138, and at WARN, currently 35 of 7,138.
+- Install-time script detection coverage, currently 0 of 116 flagged.
+- Lifecycle-script false-positive rate on standard build scripts; 15 cases should remain unflagged, and 13 of those currently have no other high signal.
+- Evidence completeness and the number of ALLOW decisions with four or more missing weighted features, currently 184 cases.
+- Existence false positives by reason, currently 122 missing versions and 28 missing packages.
+- Decision-log completeness for timestamps, version history, maintainer history and model configuration.
+
+The supporting per-case files are malicious_allow_analysis.csv (235 rows), benign_block_analysis.csv (150 rows), root_cause_summary.md, root_cause_summary.json and root_cause_representative_examples.csv. The analysis script is analyze-root-causes.mjs.

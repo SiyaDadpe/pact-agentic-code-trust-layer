@@ -1,0 +1,80 @@
+{
+  "sha": "66887074792b56c6002253296710765435d3b97c",
+  "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/66887074792b56c6002253296710765435d3b97c",
+  "tree": [
+    {
+      "path": ".gitattributes",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "12bb02cade7c6fb74b243671946524fbf32872d5",
+      "size": 999,
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/blobs/12bb02cade7c6fb74b243671946524fbf32872d5"
+    },
+    {
+      "path": ".gitignore",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "daa4c8617830c5a07b077a61f80ebdf10edce782",
+      "size": 4670,
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/blobs/daa4c8617830c5a07b077a61f80ebdf10edce782"
+    },
+    {
+      "path": "Configs",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "9833a2ec27ff40eeb03d556dd61831af1f807a5d",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/9833a2ec27ff40eeb03d556dd61831af1f807a5d"
+    },
+    {
+      "path": "Core",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b6a0291b98e354c10f3101f787ae9c3160631563",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/b6a0291b98e354c10f3101f787ae9c3160631563"
+    },
+    {
+      "path": "Dataset",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "ff775f83759b07891f95d7c8fbe1b882499ac8fa",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/ff775f83759b07891f95d7c8fbe1b882499ac8fa"
+    },
+    {
+      "path": "Experiment",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "b0d4d502e0dcd24c4de2ba7354ee1107041528e5",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/b0d4d502e0dcd24c4de2ba7354ee1107041528e5"
+    },
+    {
+      "path": "README.md",
+      "mode": "100644",
+      "type": "blob",
+      "sha": "72c2b3280c667312aea2654d084cfd65b06b3e19",
+      "size": 9051,
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/blobs/72c2b3280c667312aea2654d084cfd65b06b3e19"
+    },
+    {
+      "path": "Resource",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6816bce2b378a4b73bf613a3d5cba3fc7b25fe77",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/6816bce2b378a4b73bf613a3d5cba3fc7b25fe77"
+    },
+    {
+      "path": "Tools",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "6e6001eac0de639ba529c585b658e0326b52eb52",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/6e6001eac0de639ba529c585b658e0326b52eb52"
+    },
+    {
+      "path": "Utils",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "1d2e4cd2f7c4b94a27639f552660dbe11349f063",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/1d2e4cd2f7c4b94a27639f552660dbe11349f063"
+    }
+  ],
+  "truncated": false
+}

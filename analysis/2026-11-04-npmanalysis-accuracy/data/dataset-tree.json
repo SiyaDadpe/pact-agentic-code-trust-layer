@@ -1,0 +1,35 @@
+{
+  "sha": "ff775f83759b07891f95d7c8fbe1b882499ac8fa",
+  "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/ff775f83759b07891f95d7c8fbe1b882499ac8fa",
+  "tree": [
+    {
+      "path": "unzip_benign",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5bfad2b3f8e483b6b173d8aaff19597e84626f15",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/5bfad2b3f8e483b6b173d8aaff19597e84626f15"
+    },
+    {
+      "path": "unzip_malware",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "5bfad2b3f8e483b6b173d8aaff19597e84626f15",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/5bfad2b3f8e483b6b173d8aaff19597e84626f15"
+    },
+    {
+      "path": "zip_benign",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "f768aece85e03879665634ee1e890bee2c463a9f",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/f768aece85e03879665634ee1e890bee2c463a9f"
+    },
+    {
+      "path": "zip_malware",
+      "mode": "040000",
+      "type": "tree",
+      "sha": "abd7ef01642c159a50a1a42dca4bca88a7cc42b4",
+      "url": "https://api.github.com/repos/lxyeternal/NPMAnalysis/git/trees/abd7ef01642c159a50a1a42dca4bca88a7cc42b4"
+    }
+  ],
+  "truncated": false
+}

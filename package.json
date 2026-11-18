@@ -1,0 +1,22 @@
+{
+  "name": "pact-agentic-code-trust-layer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "PACT: a pre-install agentic code trust layer for npm package safety",
+  "bin": {
+    "pact": "./src/cli.js",
+    "pact-npm-wrapper": "./scripts/pact-npm-wrapper.sh"
+  },
+  "scripts": {
+    "test": "node --test",
+    "check": "node --test",
+    "start": "node ./src/cli.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "react": "^19.2.8"
+  }
+}

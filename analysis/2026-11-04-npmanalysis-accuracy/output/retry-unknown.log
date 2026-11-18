@@ -1,0 +1,15 @@
+mode=cli cases=13708 existing_results=13708 pending=1216
+checked 100/1216
+checked 200/1216
+checked 300/1216
+checked 400/1216
+checked 500/1216
+checked 600/1216
+checked 700/1216
+checked 800/1216
+checked 900/1216
+checked 1000/1216
+checked 1100/1216
+checked 1216/1216
+wrote /Users/siya/Desktop/slopsquatting-mjp/analysis/2026-11-04-npmanalysis-accuracy/output/metrics.cli.json
+wrote /Users/siya/Desktop/slopsquatting-mjp/analysis/2026-11-04-npmanalysis-accuracy/output/metrics.cli.md
