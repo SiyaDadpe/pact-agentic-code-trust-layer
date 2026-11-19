@@ -1,0 +1,145 @@
+{
+  "generated_at": "2026-11-19T15:53:06Z",
+  "detailed_input": "analysis/2026-11-19-evaluation-protocol/step1-lifecycle/output/dev_scoring_step1_detailed.jsonl",
+  "features_output": "analysis/2026-11-19-evaluation-protocol/step1-lifecycle/output/dev_scoring_step1_features.jsonl",
+  "counts": {
+    "total_rows": 5122,
+    "comparable": 5117,
+    "registry_drift_nonexistent_excluded": 5,
+    "other_excluded": 0,
+    "comparable_by_label": {
+      "benign": 4993,
+      "malicious": 124
+    }
+  },
+  "metrics_b2": {
+    "BLOCK": {
+      "before": {
+        "TP": 0,
+        "FP": 0,
+        "TN": 4993,
+        "FN": 124,
+        "total": 5117,
+        "recall": 0.0,
+        "specificity": 1.0,
+        "FPR": 0.0,
+        "precision": null,
+        "F1": 0.0,
+        "MCC": null,
+        "balanced_accuracy": 0.5
+      },
+      "after": {
+        "TP": 0,
+        "FP": 0,
+        "TN": 4993,
+        "FN": 124,
+        "total": 5117,
+        "recall": 0.0,
+        "specificity": 1.0,
+        "FPR": 0.0,
+        "precision": null,
+        "F1": 0.0,
+        "MCC": null,
+        "balanced_accuracy": 0.5
+      }
+    },
+    "BLOCK|WARN": {
+      "before": {
+        "TP": 10,
+        "FP": 21,
+        "TN": 4972,
+        "FN": 114,
+        "total": 5117,
+        "recall": 0.08064516129032258,
+        "specificity": 0.995794111756459,
+        "FPR": 0.004205888243540957,
+        "precision": 0.3225806451612903,
+        "F1": 0.12903225806451613,
+        "MCC": 0.15147436792638608,
+        "balanced_accuracy": 0.5382196365233908
+      },
+      "after": {
+        "TP": 69,
+        "FP": 28,
+        "TN": 4965,
+        "FN": 55,
+        "total": 5117,
+        "recall": 0.5564516129032258,
+        "specificity": 0.9943921490086121,
+        "FPR": 0.005607850991387943,
+        "precision": 0.711340206185567,
+        "F1": 0.6244343891402715,
+        "MCC": 0.6211297564572485,
+        "balanced_accuracy": 0.7754218809559189
+      }
+    }
+  },
+  "lifecycle_script_coverage": {
+    "malicious": {
+      "n": 124,
+      "old_lifecycle_script_risk_1": 10,
+      "new_lifecycle_script_risk_1": 69
+    },
+    "benign": {
+      "n": 4993,
+      "old_lifecycle_script_risk_1": 21,
+      "new_lifecycle_script_risk_1": 28
+    }
+  },
+  "newly_detected_malicious_count_block_warn": 59,
+  "newly_detected_malicious_count_block": 0,
+  "newly_flagged_benign_count_block_warn": 8,
+  "regressions_count": 8,
+  "drift_cases": [
+    {
+      "spec": "correct-calc@1.0.0",
+      "label": "benign",
+      "frozen_existence_status": "exists",
+      "frozen_decision": "ALLOW",
+      "step1_existence_status": "missing_version",
+      "step1_decision": "BLOCK",
+      "step1_reason": "blocked: nonexistent_version",
+      "lifecycle_scripts": null
+    },
+    {
+      "spec": "dowload_ebok_bread_toast_crumbs_by_alexandra_stafford_31rd1@3.0.0",
+      "label": "benign",
+      "frozen_existence_status": "exists",
+      "frozen_decision": "ALLOW",
+      "step1_existence_status": "missing_version",
+      "step1_decision": "BLOCK",
+      "step1_reason": "blocked: nonexistent_version",
+      "lifecycle_scripts": null
+    },
+    {
+      "spec": "yummy-bolts@1.4.0",
+      "label": "malicious",
+      "frozen_existence_status": "exists",
+      "frozen_decision": "ALLOW",
+      "step1_existence_status": "missing_version",
+      "step1_decision": "BLOCK",
+      "step1_reason": "blocked: nonexistent_version",
+      "lifecycle_scripts": null
+    },
+    {
+      "spec": "high-order-function@0.1.3",
+      "label": "benign",
+      "frozen_existence_status": "exists",
+      "frozen_decision": "ALLOW",
+      "step1_existence_status": "missing_version",
+      "step1_decision": "BLOCK",
+      "step1_reason": "blocked: nonexistent_version",
+      "lifecycle_scripts": null
+    },
+    {
+      "spec": "loggly-light@1.0.1",
+      "label": "benign",
+      "frozen_existence_status": "exists",
+      "frozen_decision": "ALLOW",
+      "step1_existence_status": "missing_version",
+      "step1_decision": "BLOCK",
+      "step1_reason": "blocked: nonexistent_version",
+      "lifecycle_scripts": null
+    }
+  ]
+}

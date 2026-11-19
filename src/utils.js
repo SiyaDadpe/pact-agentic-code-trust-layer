@@ -128,9 +128,25 @@ export function isSuspiciousScript(scriptValue) {
     return false;
   }
 
-  return /(?:curl|wget|powershell|invoke-webrequest|bash\s+-c|sh\s+-c|chmod\s+\+x|nc\s|netcat|python\s+-c|node\s+(?:-e|[^\n]*(?:setup|install|preinstall|postinstall)\.js)|base64\s+-d|eval\s*\(|require\s*\(|iwr\b)/i.test(
-    script
-  );
+  return [
+    /\b(?:curl|wget)\b/,
+    /\b(?:powershell|invoke-webrequest|iwr)\b/,
+    /\b(?:ba)?sh\s+-c\b/,
+    /\bchmod\s+\+x\b/,
+    /\b(?:nc|netcat)\b/,
+    /\bpython\s+-c\b/,
+    /\bnode\s+-e\b/,
+    /\bnode\s+(?:--[^\s]+\s+)*[^\s"']*\b(?:setup|install|preinstall|postinstall)\.js\b/,
+    /\bbase64\s+-d\b/,
+    /\beval\s*\(/,
+    /\brequire\s*\(/,
+    // direct node script execution in install hooks (e.g. node new.js, node <random>.cjs)
+    /\bnode\s+(?:--[^\s]+\s+)*[^\s-][^\s]*\.(?:cjs|mjs|jsx?|tsx?)\b/,
+    // sh/bash executing a script/path argument, including `sh <path>` / `bash <path>` (not -c/-s inline forms)
+    /\b(?:ba)?sh\s+(?:-(?![cs]\b)[^\s]+\s+)*[^\s-][^\s]*/,
+    // direct relative/absolute script execution (e.g. ./pre.sh)
+    /(?:^|[;&|]\s*)\.{1,2}\/[^\s;&|]+/
+  ].some((pattern) => pattern.test(script));
 }
 
 export function looksLikeBroadRange(range) {

@@ -90,6 +90,8 @@ The engine was evaluated against the labelled `NPMAnalysis` malware/benign datas
 
 Analysis of the false negatives found that all 235 malicious `ALLOW` cases existed in the registry but were not flagged by OSV — the main remaining gap is authoritative malicious-package intelligence, not registry availability. All 150 benign false positives were caused by registry existence failures (unpublished packages or versions).
 
+> **Status:** project in progress — accuracy is actively being improved.
+
 ---
 
 ## Quick start

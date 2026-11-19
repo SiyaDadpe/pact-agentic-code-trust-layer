@@ -1,0 +1,758 @@
+{
+  "meta": {
+    "source_results": "analysis/2026-11-04-npmanalysis-accuracy/output/check-results.cli.jsonl",
+    "source_metrics": "analysis/2026-11-04-npmanalysis-accuracy/output/metrics.cli.json",
+    "source_rebuilt_csv": "analysis/2026-11-04-npmanalysis-accuracy/output/npmanalysis_cases.rebuilt.csv",
+    "split_assignment": "analysis/2026-11-19-evaluation-protocol/data/npmanalysis_package_splits.csv",
+    "engine": "PACT rule_v1 (src/constants.js weights/thresholds at commit a4a4d5d)",
+    "generated_at": "2026-11-19",
+    "notes": "Baseline computed from preserved 2026-11-04 check outputs; no production code/weights/thresholds/labels modified."
+  },
+  "all": {
+    "name": "all",
+    "overall": {
+      "n": 13708,
+      "by_label": {
+        "benign": 7288,
+        "malicious": 6420
+      },
+      "by_decision": {
+        "ALLOW": 7338,
+        "BLOCK": 6321,
+        "WARN": 49
+      },
+      "by_label_decision": {
+        "benign:ALLOW": 7103,
+        "benign:BLOCK": 150,
+        "benign:WARN": 35,
+        "malicious:BLOCK": 6171,
+        "malicious:ALLOW": 235,
+        "malicious:WARN": 14
+      },
+      "by_existence_status": {
+        "exists": 7518,
+        "missing_package": 299,
+        "missing_version": 5891
+      },
+      "malicious_block_reasons": {
+        "blocked: nonexistent_version": 5769,
+        "blocked: nonexistent_package": 271,
+        "blocked: known_malicious": 131
+      },
+      "benign_block_reasons": {
+        "blocked: nonexistent_package": 28,
+        "blocked: nonexistent_version": 122
+      }
+    },
+    "end_to_end": {
+      "block_positive": {
+        "n": 13708,
+        "tp": 6171,
+        "fp": 150,
+        "tn": 7138,
+        "fn": 249,
+        "accuracy": 0.970893,
+        "precision": 0.97627,
+        "recall": 0.961215,
+        "specificity": 0.979418,
+        "npv": 0.966292,
+        "fpr": 0.020582,
+        "fnr": 0.038785,
+        "f1": 0.968684,
+        "balanced_accuracy": 0.970317,
+        "mcc": 0.941597
+      },
+      "block_or_warn_positive": {
+        "n": 13708,
+        "tp": 6185,
+        "fp": 185,
+        "tn": 7103,
+        "fn": 235,
+        "accuracy": 0.969361,
+        "precision": 0.970958,
+        "recall": 0.963396,
+        "specificity": 0.974616,
+        "npv": 0.967975,
+        "fpr": 0.025384,
+        "fnr": 0.036604,
+        "f1": 0.967162,
+        "balanced_accuracy": 0.969006,
+        "mcc": 0.938472
+      }
+    },
+    "existing_packages": {
+      "overall": {
+        "n": 7518,
+        "by_label": {
+          "benign": 7138,
+          "malicious": 380
+        },
+        "by_decision": {
+          "ALLOW": 7338,
+          "WARN": 49,
+          "BLOCK": 131
+        },
+        "by_label_decision": {
+          "benign:ALLOW": 7103,
+          "benign:WARN": 35,
+          "malicious:ALLOW": 235,
+          "malicious:BLOCK": 131,
+          "malicious:WARN": 14
+        },
+        "by_existence_status": {
+          "exists": 7518
+        },
+        "malicious_block_reasons": {
+          "blocked: known_malicious": 131
+        },
+        "benign_block_reasons": {}
+      },
+      "block_positive": {
+        "n": 7518,
+        "tp": 131,
+        "fp": 0,
+        "tn": 7138,
+        "fn": 249,
+        "accuracy": 0.966879,
+        "precision": 1.0,
+        "recall": 0.344737,
+        "specificity": 1.0,
+        "npv": 0.966292,
+        "fpr": 0.0,
+        "fnr": 0.655263,
+        "f1": 0.51272,
+        "balanced_accuracy": 0.672368,
+        "mcc": 0.577162
+      },
+      "block_or_warn_positive": {
+        "n": 7518,
+        "tp": 145,
+        "fp": 35,
+        "tn": 7103,
+        "fn": 235,
+        "accuracy": 0.964086,
+        "precision": 0.805556,
+        "recall": 0.381579,
+        "specificity": 0.995097,
+        "npv": 0.967975,
+        "fpr": 0.004903,
+        "fnr": 0.618421,
+        "f1": 0.517857,
+        "balanced_accuracy": 0.688338,
+        "mcc": 0.539787
+      }
+    },
+    "non_existing_or_unavailable": {
+      "overall": {
+        "n": 6190,
+        "by_label": {
+          "benign": 150,
+          "malicious": 6040
+        },
+        "by_decision": {
+          "BLOCK": 6190
+        },
+        "by_label_decision": {
+          "benign:BLOCK": 150,
+          "malicious:BLOCK": 6040
+        },
+        "by_existence_status": {
+          "missing_package": 299,
+          "missing_version": 5891
+        },
+        "malicious_block_reasons": {
+          "blocked: nonexistent_version": 5769,
+          "blocked: nonexistent_package": 271
+        },
+        "benign_block_reasons": {
+          "blocked: nonexistent_package": 28,
+          "blocked: nonexistent_version": 122
+        }
+      }
+    },
+    "registry_existence_check_view": {
+      "malicious_missing_blocked": 6040,
+      "benign_missing_blocked": 150,
+      "malicious_existing_blocked": 131,
+      "benign_existing_blocked": 0,
+      "malicious_existing_allow_or_warn": 249
+    },
+    "existing_substages": {
+      "osv_known_malicious_block": {
+        "n": 131,
+        "by_label": {
+          "malicious": 131
+        },
+        "by_decision": {
+          "BLOCK": 131
+        },
+        "by_label_decision": {
+          "malicious:BLOCK": 131
+        },
+        "by_existence_status": {
+          "exists": 131
+        },
+        "malicious_block_reasons": {
+          "blocked: known_malicious": 131
+        },
+        "benign_block_reasons": {}
+      },
+      "reached_scoring_stage_excl_osv_malicious": {
+        "overall": {
+          "n": 7387,
+          "by_label": {
+            "benign": 7138,
+            "malicious": 249
+          },
+          "by_decision": {
+            "ALLOW": 7338,
+            "WARN": 49
+          },
+          "by_label_decision": {
+            "benign:ALLOW": 7103,
+            "benign:WARN": 35,
+            "malicious:ALLOW": 235,
+            "malicious:WARN": 14
+          },
+          "by_existence_status": {
+            "exists": 7387
+          },
+          "malicious_block_reasons": {},
+          "benign_block_reasons": {}
+        },
+        "block_positive": {
+          "n": 7387,
+          "tp": 0,
+          "fp": 0,
+          "tn": 7138,
+          "fn": 249,
+          "accuracy": 0.966292,
+          "precision": null,
+          "recall": 0.0,
+          "specificity": 1.0,
+          "npv": 0.966292,
+          "fpr": 0.0,
+          "fnr": 1.0,
+          "f1": null,
+          "balanced_accuracy": 0.5,
+          "mcc": null
+        },
+        "block_or_warn_positive": {
+          "n": 7387,
+          "tp": 14,
+          "fp": 35,
+          "tn": 7103,
+          "fn": 235,
+          "accuracy": 0.963449,
+          "precision": 0.285714,
+          "recall": 0.056225,
+          "specificity": 0.995097,
+          "npv": 0.967975,
+          "fpr": 0.004903,
+          "fnr": 0.943775,
+          "f1": 0.09396,
+          "balanced_accuracy": 0.525661,
+          "mcc": 0.114104
+        }
+      }
+    }
+  },
+  "dev": {
+    "name": "dev",
+    "overall": {
+      "n": 9578,
+      "by_label": {
+        "benign": 5102,
+        "malicious": 4476
+      },
+      "by_decision": {
+        "ALLOW": 5091,
+        "BLOCK": 4456,
+        "WARN": 31
+      },
+      "by_label_decision": {
+        "benign:ALLOW": 4976,
+        "benign:BLOCK": 105,
+        "benign:WARN": 21,
+        "malicious:BLOCK": 4351,
+        "malicious:ALLOW": 115,
+        "malicious:WARN": 10
+      },
+      "by_existence_status": {
+        "exists": 5212,
+        "missing_package": 203,
+        "missing_version": 4163
+      },
+      "malicious_block_reasons": {
+        "blocked: nonexistent_version": 4077,
+        "blocked: nonexistent_package": 184,
+        "blocked: known_malicious": 90
+      },
+      "benign_block_reasons": {
+        "blocked: nonexistent_package": 19,
+        "blocked: nonexistent_version": 86
+      }
+    },
+    "end_to_end": {
+      "block_positive": {
+        "n": 9578,
+        "tp": 4351,
+        "fp": 105,
+        "tn": 4997,
+        "fn": 125,
+        "accuracy": 0.975987,
+        "precision": 0.976436,
+        "recall": 0.972073,
+        "specificity": 0.97942,
+        "npv": 0.975595,
+        "fpr": 0.02058,
+        "fnr": 0.027927,
+        "f1": 0.97425,
+        "balanced_accuracy": 0.975747,
+        "mcc": 0.951762
+      },
+      "block_or_warn_positive": {
+        "n": 9578,
+        "tp": 4361,
+        "fp": 126,
+        "tn": 4976,
+        "fn": 115,
+        "accuracy": 0.974838,
+        "precision": 0.971919,
+        "recall": 0.974307,
+        "specificity": 0.975304,
+        "npv": 0.977411,
+        "fpr": 0.024696,
+        "fnr": 0.025693,
+        "f1": 0.973112,
+        "balanced_accuracy": 0.974806,
+        "mcc": 0.949471
+      }
+    },
+    "existing_packages": {
+      "overall": {
+        "n": 5212,
+        "by_label": {
+          "benign": 4997,
+          "malicious": 215
+        },
+        "by_decision": {
+          "ALLOW": 5091,
+          "WARN": 31,
+          "BLOCK": 90
+        },
+        "by_label_decision": {
+          "benign:ALLOW": 4976,
+          "benign:WARN": 21,
+          "malicious:ALLOW": 115,
+          "malicious:BLOCK": 90,
+          "malicious:WARN": 10
+        },
+        "by_existence_status": {
+          "exists": 5212
+        },
+        "malicious_block_reasons": {
+          "blocked: known_malicious": 90
+        },
+        "benign_block_reasons": {}
+      },
+      "block_positive": {
+        "n": 5212,
+        "tp": 90,
+        "fp": 0,
+        "tn": 4997,
+        "fn": 125,
+        "accuracy": 0.976017,
+        "precision": 1.0,
+        "recall": 0.418605,
+        "specificity": 1.0,
+        "npv": 0.975595,
+        "fpr": 0.0,
+        "fnr": 0.581395,
+        "f1": 0.590164,
+        "balanced_accuracy": 0.709302,
+        "mcc": 0.639053
+      },
+      "block_or_warn_positive": {
+        "n": 5212,
+        "tp": 100,
+        "fp": 21,
+        "tn": 4976,
+        "fn": 115,
+        "accuracy": 0.973906,
+        "precision": 0.826446,
+        "recall": 0.465116,
+        "specificity": 0.995797,
+        "npv": 0.977411,
+        "fpr": 0.004203,
+        "fnr": 0.534884,
+        "f1": 0.595238,
+        "balanced_accuracy": 0.730457,
+        "mcc": 0.608694
+      }
+    },
+    "non_existing_or_unavailable": {
+      "overall": {
+        "n": 4366,
+        "by_label": {
+          "benign": 105,
+          "malicious": 4261
+        },
+        "by_decision": {
+          "BLOCK": 4366
+        },
+        "by_label_decision": {
+          "benign:BLOCK": 105,
+          "malicious:BLOCK": 4261
+        },
+        "by_existence_status": {
+          "missing_package": 203,
+          "missing_version": 4163
+        },
+        "malicious_block_reasons": {
+          "blocked: nonexistent_version": 4077,
+          "blocked: nonexistent_package": 184
+        },
+        "benign_block_reasons": {
+          "blocked: nonexistent_package": 19,
+          "blocked: nonexistent_version": 86
+        }
+      }
+    },
+    "registry_existence_check_view": {
+      "malicious_missing_blocked": 4261,
+      "benign_missing_blocked": 105,
+      "malicious_existing_blocked": 90,
+      "benign_existing_blocked": 0,
+      "malicious_existing_allow_or_warn": 125
+    },
+    "existing_substages": {
+      "osv_known_malicious_block": {
+        "n": 90,
+        "by_label": {
+          "malicious": 90
+        },
+        "by_decision": {
+          "BLOCK": 90
+        },
+        "by_label_decision": {
+          "malicious:BLOCK": 90
+        },
+        "by_existence_status": {
+          "exists": 90
+        },
+        "malicious_block_reasons": {
+          "blocked: known_malicious": 90
+        },
+        "benign_block_reasons": {}
+      },
+      "reached_scoring_stage_excl_osv_malicious": {
+        "overall": {
+          "n": 5122,
+          "by_label": {
+            "benign": 4997,
+            "malicious": 125
+          },
+          "by_decision": {
+            "ALLOW": 5091,
+            "WARN": 31
+          },
+          "by_label_decision": {
+            "benign:ALLOW": 4976,
+            "benign:WARN": 21,
+            "malicious:ALLOW": 115,
+            "malicious:WARN": 10
+          },
+          "by_existence_status": {
+            "exists": 5122
+          },
+          "malicious_block_reasons": {},
+          "benign_block_reasons": {}
+        },
+        "block_positive": {
+          "n": 5122,
+          "tp": 0,
+          "fp": 0,
+          "tn": 4997,
+          "fn": 125,
+          "accuracy": 0.975595,
+          "precision": null,
+          "recall": 0.0,
+          "specificity": 1.0,
+          "npv": 0.975595,
+          "fpr": 0.0,
+          "fnr": 1.0,
+          "f1": null,
+          "balanced_accuracy": 0.5,
+          "mcc": null
+        },
+        "block_or_warn_positive": {
+          "n": 5122,
+          "tp": 10,
+          "fp": 21,
+          "tn": 4976,
+          "fn": 115,
+          "accuracy": 0.973448,
+          "precision": 0.322581,
+          "recall": 0.08,
+          "specificity": 0.995797,
+          "npv": 0.977411,
+          "fpr": 0.004203,
+          "fnr": 0.92,
+          "f1": 0.128205,
+          "balanced_accuracy": 0.537899,
+          "mcc": 0.150793
+        }
+      }
+    }
+  },
+  "val": {
+    "name": "val",
+    "overall": {
+      "n": 4130,
+      "by_label": {
+        "benign": 2186,
+        "malicious": 1944
+      },
+      "by_decision": {
+        "ALLOW": 2247,
+        "WARN": 18,
+        "BLOCK": 1865
+      },
+      "by_label_decision": {
+        "benign:ALLOW": 2127,
+        "benign:WARN": 14,
+        "benign:BLOCK": 45,
+        "malicious:BLOCK": 1820,
+        "malicious:ALLOW": 120,
+        "malicious:WARN": 4
+      },
+      "by_existence_status": {
+        "exists": 2306,
+        "missing_version": 1728,
+        "missing_package": 96
+      },
+      "malicious_block_reasons": {
+        "blocked: nonexistent_version": 1692,
+        "blocked: nonexistent_package": 87,
+        "blocked: known_malicious": 41
+      },
+      "benign_block_reasons": {
+        "blocked: nonexistent_version": 36,
+        "blocked: nonexistent_package": 9
+      }
+    },
+    "end_to_end": {
+      "block_positive": {
+        "n": 4130,
+        "tp": 1820,
+        "fp": 45,
+        "tn": 2141,
+        "fn": 124,
+        "accuracy": 0.95908,
+        "precision": 0.975871,
+        "recall": 0.936214,
+        "specificity": 0.979414,
+        "npv": 0.945254,
+        "fpr": 0.020586,
+        "fnr": 0.063786,
+        "f1": 0.955631,
+        "balanced_accuracy": 0.957814,
+        "mcc": 0.918373
+      },
+      "block_or_warn_positive": {
+        "n": 4130,
+        "tp": 1824,
+        "fp": 59,
+        "tn": 2127,
+        "fn": 120,
+        "accuracy": 0.956659,
+        "precision": 0.968667,
+        "recall": 0.938272,
+        "specificity": 0.97301,
+        "npv": 0.946595,
+        "fpr": 0.02699,
+        "fnr": 0.061728,
+        "f1": 0.953227,
+        "balanced_accuracy": 0.955641,
+        "mcc": 0.91327
+      }
+    },
+    "existing_packages": {
+      "overall": {
+        "n": 2306,
+        "by_label": {
+          "benign": 2141,
+          "malicious": 165
+        },
+        "by_decision": {
+          "ALLOW": 2247,
+          "WARN": 18,
+          "BLOCK": 41
+        },
+        "by_label_decision": {
+          "benign:ALLOW": 2127,
+          "benign:WARN": 14,
+          "malicious:BLOCK": 41,
+          "malicious:ALLOW": 120,
+          "malicious:WARN": 4
+        },
+        "by_existence_status": {
+          "exists": 2306
+        },
+        "malicious_block_reasons": {
+          "blocked: known_malicious": 41
+        },
+        "benign_block_reasons": {}
+      },
+      "block_positive": {
+        "n": 2306,
+        "tp": 41,
+        "fp": 0,
+        "tn": 2141,
+        "fn": 124,
+        "accuracy": 0.946227,
+        "precision": 1.0,
+        "recall": 0.248485,
+        "specificity": 1.0,
+        "npv": 0.945254,
+        "fpr": 0.0,
+        "fnr": 0.751515,
+        "f1": 0.398058,
+        "balanced_accuracy": 0.624242,
+        "mcc": 0.484646
+      },
+      "block_or_warn_positive": {
+        "n": 2306,
+        "tp": 45,
+        "fp": 14,
+        "tn": 2127,
+        "fn": 120,
+        "accuracy": 0.941891,
+        "precision": 0.762712,
+        "recall": 0.272727,
+        "specificity": 0.993461,
+        "npv": 0.946595,
+        "fpr": 0.006539,
+        "fnr": 0.727273,
+        "f1": 0.401786,
+        "balanced_accuracy": 0.633094,
+        "mcc": 0.434522
+      }
+    },
+    "non_existing_or_unavailable": {
+      "overall": {
+        "n": 1824,
+        "by_label": {
+          "benign": 45,
+          "malicious": 1779
+        },
+        "by_decision": {
+          "BLOCK": 1824
+        },
+        "by_label_decision": {
+          "benign:BLOCK": 45,
+          "malicious:BLOCK": 1779
+        },
+        "by_existence_status": {
+          "missing_version": 1728,
+          "missing_package": 96
+        },
+        "malicious_block_reasons": {
+          "blocked: nonexistent_version": 1692,
+          "blocked: nonexistent_package": 87
+        },
+        "benign_block_reasons": {
+          "blocked: nonexistent_version": 36,
+          "blocked: nonexistent_package": 9
+        }
+      }
+    },
+    "registry_existence_check_view": {
+      "malicious_missing_blocked": 1779,
+      "benign_missing_blocked": 45,
+      "malicious_existing_blocked": 41,
+      "benign_existing_blocked": 0,
+      "malicious_existing_allow_or_warn": 124
+    },
+    "existing_substages": {
+      "osv_known_malicious_block": {
+        "n": 41,
+        "by_label": {
+          "malicious": 41
+        },
+        "by_decision": {
+          "BLOCK": 41
+        },
+        "by_label_decision": {
+          "malicious:BLOCK": 41
+        },
+        "by_existence_status": {
+          "exists": 41
+        },
+        "malicious_block_reasons": {
+          "blocked: known_malicious": 41
+        },
+        "benign_block_reasons": {}
+      },
+      "reached_scoring_stage_excl_osv_malicious": {
+        "overall": {
+          "n": 2265,
+          "by_label": {
+            "benign": 2141,
+            "malicious": 124
+          },
+          "by_decision": {
+            "ALLOW": 2247,
+            "WARN": 18
+          },
+          "by_label_decision": {
+            "benign:ALLOW": 2127,
+            "benign:WARN": 14,
+            "malicious:ALLOW": 120,
+            "malicious:WARN": 4
+          },
+          "by_existence_status": {
+            "exists": 2265
+          },
+          "malicious_block_reasons": {},
+          "benign_block_reasons": {}
+        },
+        "block_positive": {
+          "n": 2265,
+          "tp": 0,
+          "fp": 0,
+          "tn": 2141,
+          "fn": 124,
+          "accuracy": 0.945254,
+          "precision": null,
+          "recall": 0.0,
+          "specificity": 1.0,
+          "npv": 0.945254,
+          "fpr": 0.0,
+          "fnr": 1.0,
+          "f1": null,
+          "balanced_accuracy": 0.5,
+          "mcc": null
+        },
+        "block_or_warn_positive": {
+          "n": 2265,
+          "tp": 4,
+          "fp": 14,
+          "tn": 2127,
+          "fn": 120,
+          "accuracy": 0.940839,
+          "precision": 0.222222,
+          "recall": 0.032258,
+          "specificity": 0.993461,
+          "npv": 0.946595,
+          "fpr": 0.006539,
+          "fnr": 0.967742,
+          "f1": 0.056338,
+          "balanced_accuracy": 0.51286,
+          "mcc": 0.065893
+        }
+      }
+    }
+  }
+}

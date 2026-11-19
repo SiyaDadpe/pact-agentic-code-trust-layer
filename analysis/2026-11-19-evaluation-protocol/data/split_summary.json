@@ -1,0 +1,40 @@
+{
+  "seed": 20261119,
+  "ratio": "70/30 package-grouped by package_name, stratified by package label stratum",
+  "note": "All versions of a package remain in the same split. \"mediaspace\" appears with both labels and is placed as a mixed stratum.",
+  "strata": {
+    "benign": {
+      "packages_total": 7287,
+      "packages_dev": 5101,
+      "packages_val": 2186
+    },
+    "mixed": {
+      "packages_total": 1,
+      "packages_dev": 1,
+      "packages_val": 0
+    },
+    "malicious": {
+      "packages_total": 4285,
+      "packages_dev": 3000,
+      "packages_val": 1285
+    }
+  },
+  "cases": {
+    "dev": {
+      "benign": 5102,
+      "malicious": 4476
+    },
+    "val": {
+      "benign": 2186,
+      "malicious": 1944
+    }
+  },
+  "packages": {
+    "dev": 8102,
+    "val": 3471,
+    "overlap": 0
+  },
+  "mixed_label_packages": [
+    "mediaspace"
+  ]
+}
