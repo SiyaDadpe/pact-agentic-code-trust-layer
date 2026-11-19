@@ -13,7 +13,9 @@ async function fetchJson(url, timeoutMs = 5000) {
   try {
     const response = await fetch(url, { signal: controller.signal });
     if (!response.ok) {
-      return { ok: false, status: response.status };
+      const retryAfterHeader = response.headers?.get?.('retry-after');
+      const retryAfterSeconds = retryAfterHeader ? Number(retryAfterHeader) : NaN;
+      return { ok: false, status: response.status, retryAfterMs: Number.isFinite(retryAfterSeconds) && retryAfterSeconds > 0 ? retryAfterSeconds * 1000 : null };
     }
     return { ok: true, status: response.status, body: await response.json() };
   } finally {
@@ -86,15 +88,55 @@ export async function fetchNpmPackage(name, requestedVersion, options = {}) {
     rawVersionMetadata: versionSelection.resolvedVersion ? document.versions?.[versionSelection.resolvedVersion] ?? null : null
   };
 
-  try {
-    const downloads = await fetchJson(`${NPM_DOWNLOADS_BASE}/${encodeURIComponent(name)}`, timeoutMs);
-    value.downloads = downloads.ok
-      ? { weekly: downloads.body?.downloads ?? null, available: true }
-      : { weekly: null, available: false };
-  } catch {
-    value.downloads = { weekly: null, available: false };
-  }
+  value.downloads = await fetchDownloads(name, timeoutMs);
 
   cache.set(key, { expiresAt: now + REGISTRY_TTL_MS, value });
   return value;
+}
+
+const DOWNLOAD_ATTEMPTS = 5;
+const DOWNLOAD_BACKOFF_MS = 1000;
+const DOWNLOAD_MAX_WAIT_MS = 30000;
+
+function isRetryableStatus(status) {
+  return status === 429 || status >= 500;
+}
+
+// Weekly downloads for a package that is already known to exist.
+// status: 'ok'      -> count returned by the API
+//         'no_data' -> API has no download record (404); the package exists, so this means zero downloads
+//         'failed'  -> lookup failed after retries; the value is unknown, not zero
+export async function fetchDownloads(name, timeoutMs = 5000, { attempts = DOWNLOAD_ATTEMPTS, backoffMs = DOWNLOAD_BACKOFF_MS, fetcher = fetchJson } = {}) {
+  const url = `${NPM_DOWNLOADS_BASE}/${encodeURIComponent(name)}`;
+  let lastError = null;
+  let retryAfterMs = null;
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      const response = await fetcher(url, timeoutMs);
+      if (response.ok && typeof response.body?.downloads === 'number') {
+        return { weekly: response.body.downloads, available: true, status: 'ok', attempts: attempt };
+      }
+      if (response.status === 404) {
+        return { weekly: 0, available: true, status: 'no_data', attempts: attempt };
+      }
+      lastError = `http_${response.status}`;
+      retryAfterMs = response.retryAfterMs ?? null;
+      if (response.ok || !isRetryableStatus(response.status)) {
+        break;
+      }
+    } catch (error) {
+      lastError = error?.message ?? 'request_failed';
+      retryAfterMs = null;
+    }
+
+    if (attempt < attempts) {
+      // Honour a positive Retry-After (npm sends 0 on its 429s, which is ignored); otherwise exponential backoff with jitter.
+      const exponential = backoffMs * 2 ** (attempt - 1) * (1 + Math.random() * 0.5);
+      const waitMs = Math.min(retryAfterMs ?? exponential, DOWNLOAD_MAX_WAIT_MS);
+      await new Promise((resolve) => setTimeout(resolve, waitMs));
+    }
+  }
+
+  return { weekly: null, available: false, status: 'failed', error: lastError, attempts };
 }

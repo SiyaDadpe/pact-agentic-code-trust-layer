@@ -230,7 +230,17 @@ export async function analyzePackageRequest(input, options = {}) {
       version_exists: registryResult.versionExists
     },
     osv_result: osvResult,
-    feature_vector: extracted.featureVector
+    feature_vector: extracted.featureVector,
+    evidence: {
+      published_at: normalizedMetadata.publish_timestamp,
+      first_published_at: normalizedMetadata.first_publish_timestamp,
+      version_count: normalizedMetadata.version_publish_timestamps.length,
+      downloads: normalizedMetadata.downloads,
+      maintainer_changed: normalizedMetadata.maintainer_changed,
+      maintainers_added: normalizedMetadata.maintainers_added,
+      publisher_changed: normalizedMetadata.publisher_changed,
+      feature_availability: extracted.availability
+    }
   };
 
   return {
