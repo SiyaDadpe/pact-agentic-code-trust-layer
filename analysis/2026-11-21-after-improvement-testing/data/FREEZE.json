@@ -1,0 +1,41 @@
+{
+  "name": "PACT After-Improvement Test (Amalfi)",
+  "frozen_at": "2026-11-21T18:08:10.865Z",
+  "source": {
+    "repo": "EvanXiaa/npm-malware-detect",
+    "commit": "9d15930a52dd1949615005dce240bb628cec7860",
+    "paper": "Sejfia & Schäfer, 'Practical Automated Detection of Malicious npm Packages', ICSE 2022",
+    "raw_file_sha256": {
+      "basic-corpus": "f0b911bf5b65c4fe9991525fea03cb5f694174614f8441d1ac680fe2498e18e7",
+      "july-29": "29cd2e80f6de250ca09ecdb3aa727f69efe95b165f0f118c07317edfcfd93fc4",
+      "july-30": "5c0116181e175db55e6f678119873f98eb3868476477a17f03b5f91f275be664",
+      "july-31": "15afb3bbfbec03ff3a285207f8e89f0034753c68c1f53d1aad3415326ab1fbe7",
+      "august-1": "ae39efa34afaaa77e7c745f2d53a3659634e6fd5420a4ccff2035f31c58339ab",
+      "august-2": "404dadec4c2ff80224d2e7e6729ca90bc37d02be72e92259409c1e2ca4df97c8",
+      "august-3": "01d715948791d956a74c911183e3f557144c527ae65a775a9736dbb637f5e8db",
+      "august-4": "850771fc96181e352b0a70d6b6261f35912e1acac524feb701f3d2a74574c8f0"
+    }
+  },
+  "case_list_sha256": "74953d41871386f93ba5033fff5e7366b322156833fca9b11de48b5b3b738487",
+  "pact_code_commit": "af940f7060c67d8d831a7bb689f5dde3a4e086af",
+  "rules": {
+    "rows": "analysis = benign or malicious only; \"not triaged\" rows excluded",
+    "versions": "exact version listed in the dataset (pinned)",
+    "exclusions": "names seen in NPMAnalysis, DataDog manifest (72c723b), or external test v1; name@version keys with conflicting labels"
+  },
+  "counts": {
+    "labelled_rows": 2232,
+    "unique_keys": 2232,
+    "conflicting_labels": 0,
+    "excluded_seen_names": 1118,
+    "total": 1114,
+    "by_label": {
+      "benign": 656,
+      "malicious": 458
+    },
+    "by_stratum": {
+      "amalfi_daily_triaged": 442,
+      "amalfi_basic_corpus": 672
+    }
+  }
+}
