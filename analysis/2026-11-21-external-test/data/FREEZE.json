@@ -1,0 +1,34 @@
+{
+  "name": "PACT External npm Test v1",
+  "frozen_at": "2026-11-21T14:34:02.323Z",
+  "seed": 20261121,
+  "case_list_sha256": "4b42524356064dd75de716fd7d1ad1b63d6de4acb07c208221699f6e4df36b09",
+  "datadog": {
+    "repo": "DataDog/malicious-software-packages-dataset",
+    "commit": "72c723be547033c558244520524b117c8d71663b",
+    "manifest_sha256": "1d5675da493498efe25a73c84d42ba888a56704bc721fbabf090e9c249626a04"
+  },
+  "version_rules": {
+    "datadog_malicious_intent": "unpinned; evaluated against the registry latest at run time (all versions are malicious)",
+    "datadog_compromised_version": "one listed compromised version, chosen with the seeded PRNG",
+    "benign": "exact latest version at snapshot time"
+  },
+  "exclusions": {
+    "all": "every NPMAnalysis package name (both labels)",
+    "benign": "DataDog manifest names; packages with an OSV MAL- advisory for the pinned version at snapshot time",
+    "benign_osv_malicious_removed": []
+  },
+  "counts": {
+    "total": 1946,
+    "malicious": 1000,
+    "benign": 946,
+    "by_stratum": {
+      "datadog_malicious_intent": 800,
+      "datadog_compromised_version": 200,
+      "npm_popular": 300,
+      "npm_ordinary": 600,
+      "legit_install_script": 46
+    }
+  },
+  "rule": "Do not evaluate, inspect results, or tune against this set until all development steps are final."
+}
