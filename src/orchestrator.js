@@ -189,6 +189,7 @@ export async function analyzePackageRequest(input, options = {}) {
     completeness: extracted.completeness,
     availability: extracted.availability,
     featureVector: extracted.featureVector,
+    weeklyDownloads: normalizedMetadata.downloads?.weekly ?? null,
     existenceCheck: {
       status: 'exists',
       raw_metadata_snapshot: metadataSnapshot(registryResult.rawMetadata, registryResult.rawVersionMetadata, registryResult.downloads),

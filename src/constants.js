@@ -26,7 +26,11 @@ export const TRUST_ENGINE_WEIGHTS = {
 export const POLICY_THRESHOLDS = {
   warn: 0.4,
   block: 0.75,
-  newPackage: 0.75
+  newPackage: 0.75,
+  // Name-similarity value for a one-edit match against a popular name (1 - 1/4).
+  typosquatSimilarity: 0.75,
+  // Packages at or above this weekly download count are treated as established by install-script BLOCK rules.
+  establishedWeeklyDownloads: 10000
 };
 
 export const EXPECTED_FEATURES = Object.keys(TRUST_ENGINE_WEIGHTS);

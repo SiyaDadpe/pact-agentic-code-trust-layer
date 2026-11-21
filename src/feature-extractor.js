@@ -2,6 +2,7 @@ import { EXPECTED_FEATURES } from './constants.js';
 import {
   clamp,
   daysBetween,
+  hasRandomScriptFilename,
   isSuspiciousScript,
   looksLikeBroadRange,
   packageAgeRiskFromTimestamp,
@@ -15,6 +16,12 @@ function deriveScriptRisk(lifecycleScripts) {
   }
   const suspicious = values.some(isSuspiciousScript);
   return { value: suspicious ? 1 : 0, available: true };
+}
+
+// Install hook runs a machine-generated-looking file name (obfuscation signal). Unweighted; used by policy rules.
+function deriveRandomScriptFilenameRisk(lifecycleScripts) {
+  const values = Object.values(lifecycleScripts ?? {}).filter(Boolean);
+  return { value: values.some(hasRandomScriptFilename) ? 1 : 0, available: lifecycleScripts !== undefined };
 }
 
 function deriveReleaseBurstiness(versionPublishTimestamps) {
@@ -45,14 +52,20 @@ function deriveDependencyRisk(metadata) {
   return { value, available: true };
 }
 
-function deriveSimilarityRisk(distance) {
+// Short names (under 5 characters, scope excluded) sit within one or two edits of many popular names by
+// chance, so their similarity is halved and cannot reach the one-edit typosquat level used by policy rules.
+const SHORT_NAME_LENGTH = 5;
+
+function deriveSimilarityRisk(distance, packageName) {
   if (distance === null || distance === undefined) {
     return { value: 0, available: false };
   }
   if (distance === 0) {
     return { value: 0, available: true };
   }
-  return { value: clamp(1 - distance / 4), available: true };
+  const baseName = String(packageName ?? '').replace(/^@[^/]+\//, '');
+  const lengthFactor = baseName && baseName.length < SHORT_NAME_LENGTH ? 0.5 : 1;
+  return { value: clamp((1 - distance / 4) * lengthFactor), available: true };
 }
 
 function deriveCorpusRisk(distance) {
@@ -92,6 +105,7 @@ export function extractFeatures({ metadata, request, osvResult }) {
   const releaseBurstiness = deriveReleaseBurstiness(metadata?.version_publish_timestamps);
   const unusualTag = deriveBooleanRisk(Boolean(request?.resolved_tag && request.resolved_tag !== 'pinned' && request.resolved_tag !== 'latest'));
   const scriptRisk = deriveScriptRisk(metadata?.lifecycle_scripts);
+  const randomScriptFilename = deriveRandomScriptFilenameRisk(metadata?.lifecycle_scripts);
   const executableRisk = deriveBooleanRisk(Boolean(metadata?.has_bin_entry) && (packageAge.value > 0.7 || (metadata?.downloads?.weekly ?? 0) < 1000), Boolean(metadata?.has_bin_entry));
   const provenanceRegression = deriveBooleanRisk(
     metadata?.provenance_available && metadata?.provenance?.present === false && metadata?.provenance_history?.some((entry) => entry.present),
@@ -100,7 +114,7 @@ export function extractFeatures({ metadata, request, osvResult }) {
   const publisherChanged = deriveBooleanRisk(Boolean(metadata?.publisher_changed), metadata?.publisher_changed_available ?? false);
   const maintainerChanged = deriveBooleanRisk(Boolean(metadata?.maintainer_changed), metadata?.maintainer_changed_available ?? false);
   const dependencyRisk = deriveDependencyRisk(metadata);
-  const similarityRisk = deriveSimilarityRisk(request?.nearest_popular_distance);
+  const similarityRisk = deriveSimilarityRisk(request?.nearest_popular_distance, request?.full_name ?? request?.name);
   const corpusRisk = request?.nearest_popular_distance === 0 ? { value: 0, available: true } : deriveCorpusRisk(request?.nearest_hallucination_distance);
   const popularityRisk = derivePopularityRisk(metadata?.downloads);
   const cveRisk = deriveCveRisk(osvResult);
@@ -111,6 +125,7 @@ export function extractFeatures({ metadata, request, osvResult }) {
     release_burstiness_risk: releaseBurstiness.value,
     unusual_tag_risk: unusualTag.value,
     lifecycle_script_risk: scriptRisk.value,
+    random_script_filename_risk: randomScriptFilename.value,
     executable_flag_risk: executableRisk.value,
     provenance_regression_risk: provenanceRegression.value,
     publisher_changed_risk: publisherChanged.value,
@@ -128,6 +143,7 @@ export function extractFeatures({ metadata, request, osvResult }) {
     release_burstiness_risk: releaseBurstiness.available,
     unusual_tag_risk: unusualTag.available,
     lifecycle_script_risk: scriptRisk.available,
+    random_script_filename_risk: randomScriptFilename.available,
     executable_flag_risk: executableRisk.available,
     provenance_regression_risk: provenanceRegression.available,
     publisher_changed_risk: publisherChanged.available,

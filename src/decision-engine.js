@@ -48,8 +48,10 @@ function blockConfidence(riskScore, completeness, breakdown) {
   return clamp(0.2 + evidence * 0.75);
 }
 
-function applyPolicyRules({ riskScore, featureVector, availability }) {
+function applyPolicyRules({ riskScore, featureVector, availability, weeklyDownloads }) {
   const scriptRisk = featureVector?.lifecycle_script_risk ?? 0;
+  const randomScriptFilenameRisk = featureVector?.random_script_filename_risk ?? 0;
+  const established = typeof weeklyDownloads === 'number' && weeklyDownloads >= POLICY_THRESHOLDS.establishedWeeklyDownloads;
   const packageAgeRisk = featureVector?.package_age_risk ?? 0;
   const corpusRisk = featureVector?.hallucination_corpus_risk ?? 0;
   const similarityRisk = featureVector?.name_similarity_risk ?? 0;
@@ -63,6 +65,22 @@ function applyPolicyRules({ riskScore, featureVector, availability }) {
     };
   }
 
+  if (scriptRisk >= 1 && randomScriptFilenameRisk >= 1 && !established) {
+    return {
+      action: 'BLOCK',
+      rule: 'install_script_runs_random_filename',
+      reason: 'blocked: install-time script runs a randomly named file in a package that is not established'
+    };
+  }
+
+  if (scriptRisk >= 1 && (similarityRisk >= POLICY_THRESHOLDS.typosquatSimilarity || corpusRisk >= POLICY_THRESHOLDS.typosquatSimilarity) && !established) {
+    return {
+      action: 'BLOCK',
+      rule: 'typosquat_with_install_script',
+      reason: 'blocked: install-time script in a package whose name imitates a popular or hallucinated package'
+    };
+  }
+
   if (scriptRisk >= 1) {
     return {
       action: 'WARN',
@@ -70,6 +88,7 @@ function applyPolicyRules({ riskScore, featureVector, availability }) {
       reason: 'warned: package contains an install-time execution script'
     };
   }
+
 
   if (corpusRisk >= 1 && similarityRisk >= 0.5 && availability?.popularity_risk && popularityRisk >= 0.5) {
     return {
@@ -84,6 +103,14 @@ function applyPolicyRules({ riskScore, featureVector, availability }) {
       action: 'WARN',
       rule: 'hallucination_typosquat_requires_review',
       reason: 'warned: package matches a hallucination corpus and a popular-package typo pattern'
+    };
+  }
+
+  if (similarityRisk >= POLICY_THRESHOLDS.typosquatSimilarity && !established) {
+    return {
+      action: 'WARN',
+      rule: 'possible_typosquat_requires_review',
+      reason: 'warned: package name is one edit away from a popular package and the package is not established'
     };
   }
 
@@ -107,7 +134,7 @@ function reasonFromSignals(action, signals) {
   return `${action}: ${parts.join(', ')}`;
 }
 
-export function decidePackageRisk({ riskScore, breakdown, completeness, availability, featureVector, existenceCheck, osvResult }) {
+export function decidePackageRisk({ riskScore, breakdown, completeness, availability, featureVector, existenceCheck, osvResult, weeklyDownloads }) {
   if (existenceCheck?.status === 'missing_package') {
     return {
       action: 'BLOCK',
@@ -138,7 +165,7 @@ export function decidePackageRisk({ riskScore, breakdown, completeness, availabi
     };
   }
 
-  const policy = applyPolicyRules({ riskScore, featureVector, availability });
+  const policy = applyPolicyRules({ riskScore, featureVector, availability, weeklyDownloads });
   const action = policy.action;
 
   const confidence =

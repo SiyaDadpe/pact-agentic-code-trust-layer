@@ -122,6 +122,28 @@ export function daysBetween(earlierIso, laterIso = new Date().toISOString()) {
   return Math.max(0, (later.getTime() - earlier.getTime()) / (1000 * 60 * 60 * 24));
 }
 
+// True when an install script runs a file whose name looks machine-generated, e.g. `node c0nlywxa.cjs`
+// or `node 31kbzord.cjs`. Legitimate install scripts use descriptive names (install.js, build.js).
+// A name counts as random when it is 6-16 lowercase letters and digits with no separators, contains
+// both, and either starts with a digit or switches between letters and digits at least twice.
+// Names like es2015, sha256 or webpack5 (one switch, starts with a letter) are not flagged.
+export function hasRandomScriptFilename(scriptValue) {
+  const script = normalizeText(scriptValue);
+  if (!script) {
+    return false;
+  }
+
+  const files = [...script.matchAll(/(?:^|[\s;&|('"=])(?:\.{0,2}\/)?((?:[\w.-]+\/)*[\w.-]+)\.(?:c|m)?[jt]sx?\b/g)].map((match) => match[1]);
+  return files.some((filePath) => {
+    const base = filePath.split('/').pop();
+    if (!/^[a-z0-9]{6,16}$/.test(base) || !/[a-z]/.test(base) || !/\d/.test(base)) {
+      return false;
+    }
+    const switches = (base.match(/[a-z](?=\d)|\d(?=[a-z])/g) ?? []).length;
+    return /^\d/.test(base) || switches >= 2;
+  });
+}
+
 export function isSuspiciousScript(scriptValue) {
   const script = normalizeText(scriptValue);
   if (!script) {
