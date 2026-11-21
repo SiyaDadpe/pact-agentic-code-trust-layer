@@ -1,0 +1,139 @@
+{
+  "generated_at": "2026-11-21T18:35:34.858Z",
+  "csv": "/Users/siya/Desktop/pact-agentic-code-trust-layer/analysis/2026-11-21-after-improvement-testing/output/eval_cases.csv",
+  "results": "/Users/siya/Desktop/pact-agentic-code-trust-layer/analysis/2026-11-21-after-improvement-testing/output/eval_results.jsonl",
+  "cases": 1114,
+  "case_labels": {
+    "benign": 656,
+    "malicious": 458
+  },
+  "overall_decisions": {
+    "ALLOW": 552,
+    "WARN": 20,
+    "BLOCK": 540,
+    "UNKNOWN": 2
+  },
+  "primary": {
+    "positive_decisions": [
+      "BLOCK"
+    ],
+    "all_cases": {
+      "tp": 456,
+      "fp": 84,
+      "tn": 572,
+      "fn": 2,
+      "total": 1114,
+      "precision": 0.8444444444444444,
+      "recall": 0.9956331877729258,
+      "specificity": 0.8719512195121951,
+      "npv": 0.9965156794425087,
+      "accuracy": 0.9228007181328546,
+      "f1": 0.9138276553106212,
+      "balanced_accuracy": 0.9337922036425604,
+      "false_positive_rate": 0.12804878048780488,
+      "false_negative_rate": 0.004366812227074236,
+      "mcc": 0.8541685376041922
+    },
+    "covered_cases": {
+      "tp": 456,
+      "fp": 84,
+      "tn": 571,
+      "fn": 1,
+      "total": 1112,
+      "precision": 0.8444444444444444,
+      "recall": 0.9978118161925602,
+      "specificity": 0.8717557251908397,
+      "npv": 0.9982517482517482,
+      "accuracy": 0.9235611510791367,
+      "f1": 0.9147442326980942,
+      "balanced_accuracy": 0.9347837706916999,
+      "false_positive_rate": 0.1282442748091603,
+      "false_negative_rate": 0.002188183807439825,
+      "mcc": 0.8560264344142534,
+      "coverage": 0.9982046678635548,
+      "unknown_excluded": 2
+    },
+    "by_label": {
+      "benign": {
+        "total": 656,
+        "decisions": {
+          "ALLOW": 551,
+          "WARN": 20,
+          "BLOCK": 84,
+          "UNKNOWN": 1
+        }
+      },
+      "malicious": {
+        "total": 458,
+        "decisions": {
+          "ALLOW": 1,
+          "WARN": 0,
+          "BLOCK": 456,
+          "UNKNOWN": 1
+        }
+      }
+    }
+  },
+  "warn_positive": {
+    "positive_decisions": [
+      "BLOCK",
+      "WARN"
+    ],
+    "all_cases": {
+      "tp": 456,
+      "fp": 104,
+      "tn": 552,
+      "fn": 2,
+      "total": 1114,
+      "precision": 0.8142857142857143,
+      "recall": 0.9956331877729258,
+      "specificity": 0.8414634146341463,
+      "npv": 0.9963898916967509,
+      "accuracy": 0.9048473967684022,
+      "f1": 0.8958742632612967,
+      "balanced_accuracy": 0.918548301203536,
+      "false_positive_rate": 0.15853658536585366,
+      "false_negative_rate": 0.004366812227074236,
+      "mcc": 0.8237801863496207
+    },
+    "covered_cases": {
+      "tp": 456,
+      "fp": 104,
+      "tn": 551,
+      "fn": 1,
+      "total": 1112,
+      "precision": 0.8142857142857143,
+      "recall": 0.9978118161925602,
+      "specificity": 0.8412213740458016,
+      "npv": 0.9981884057971014,
+      "accuracy": 0.9055755395683454,
+      "f1": 0.8967551622418879,
+      "balanced_accuracy": 0.9195165951191808,
+      "false_positive_rate": 0.15877862595419848,
+      "false_negative_rate": 0.002188183807439825,
+      "mcc": 0.8256468694055532,
+      "coverage": 0.9982046678635548,
+      "unknown_excluded": 2
+    },
+    "by_label": {
+      "benign": {
+        "total": 656,
+        "decisions": {
+          "ALLOW": 551,
+          "WARN": 20,
+          "BLOCK": 84,
+          "UNKNOWN": 1
+        }
+      },
+      "malicious": {
+        "total": 458,
+        "decisions": {
+          "ALLOW": 1,
+          "WARN": 0,
+          "BLOCK": 456,
+          "UNKNOWN": 1
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+spec,label,stratum,stage,decision,rule,risk_score,weekly_downloads,install_scripts
+@cpmech/mdxcode@0.1.0,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.25833333333333336,9,{ postinstall : bash ./zscripts/npm_postinstall.bash }
+@evam/compiler@1.0.8,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+@evam/compiler@1.0.9,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+@firstdorsal/init@1.0.0,benign,amalfi_daily_triaged,existence:missing_package,BLOCK,nonexistent_package,1,,{}
+@heat/cloud-front-function@0.0.6,benign,amalfi_daily_triaged,existence:missing_package,BLOCK,nonexistent_package,1,,{}
+@hiren_mathbuddy/tiny@1.0.0,benign,amalfi_daily_triaged,existence:missing_package,BLOCK,nonexistent_package,1,,{}
+@itentialopensource/adapter-cyberark@0.1.1,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.24118300653328584,48,{ preinstall : node utils/setup.js }
+@itentialopensource/adapter-efficientip_solidserver@0.1.1,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.24104857998059645,58,{ preinstall : node utils/setup.js }
+@itentialopensource/adapter-netbox_v210@0.1.1,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.2410993955175096,54,{ preinstall : node utils/setup.js }
+@jacekpietal/dependency-injection@1.3.1,benign,amalfi_daily_triaged,existence:missing_package,BLOCK,nonexistent_package,1,,{}
+@itentialopensource/adapter-microsoft_office365@0.1.1,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.24107354190721253,56,{ preinstall : node utils/setup.js }
+@kloak-it/qtgate-server@0.2.1,benign,amalfi_daily_triaged,existence:missing_package,BLOCK,nonexistent_package,1,,{}
+@ldrick/trade-indicators@0.3.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+@ngxsmart/react-cookie-service@0.0.2,benign,amalfi_daily_triaged,existence:missing_package,BLOCK,nonexistent_package,1,,{}
+@pixiebrix/extension@1.2.7-alpha.0,benign,amalfi_daily_triaged,existence:missing_package,BLOCK,nonexistent_package,1,,{}
+@strapi/strapi@4.0.0-next.0,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.2784269748495712,277852,{ postinstall : node lib/utils/success.js }
+@tingyun-common/cli@0.0.1,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.25564171108671535,25,{ install : node scripts/install.js }
+@tsaspc/node-occ@1.0.2,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.25858806994776296,27,{ install : node-gyp rebuild   postinstall : node post-install.js }
+@twofistedjustice/tiny@1.0.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+@x-system/utils@0.0.1,benign,amalfi_daily_triaged,existence:missing_package,BLOCK,nonexistent_package,1,,{}
+@yli1r/themekit@1.1.9,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.2549965666811201,3,{ postinstall : node ./lib/cli.js install }
+blingjs@0.0.1,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+blingjs@0.0.3,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+bot-template-sale@1.0.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+chall@1.0.0,benign,amalfi_daily_triaged,scoring,WARN,possible_typosquat_requires_review,0.24808978660720296,13,{}
+cdstestingpackagepostinstall@1.0.0,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.17786874399841196,18,{ postinstall : node ../../scripts/postinstall.js }
+emp-storybook-cli@1.0.11,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.294032981263814,23,{ postinstall : node ./bin/postinstall.js   prepare : tsdx build }
+eslint-plugin-i18n2@0.0.1-alpha.1,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.22003984790157388,14,{ postinstall : node scripts/postinstall.js }
+freshdom@0.0.1,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+freshdom@0.0.2,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+freshdom@0.0.4,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+freshdom@0.0.5,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+freshdom@0.0.3,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+gatsby@3.11.0-alpha-node-manifests.0,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.4570815678963037,316999,{ postinstall : node scripts/postinstall.js   prepare : cross-env NODE_ENV=production npm run build }
+genesys-cloud-webrtc-sdk@6.0.2-branch.PCM1693.1,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+heylala2021vn@0.1.13,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.2681278748318775,2,{ postinstall : node ./scripts/postinstall.js }
+jquery.js@3.2.2-pre,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.11,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.1,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.13,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.12,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.14,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.16,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.15,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.17,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.19,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.2,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.20,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.21,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.22,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.23,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.24,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.25,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.26,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.18,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.28,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.29,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.3,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.27,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.31,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.32,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.33,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.35,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.36,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.37,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.38,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.39,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.4,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.40,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.41,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.30,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.42,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.44,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.45,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.46,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.43,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.6,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.7,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.8,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.9,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.0.5,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+modlibrary@0.1.0,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+nodemod@3.0.0-rc.6,benign,amalfi_daily_triaged,scoring,WARN,possible_typosquat_requires_review,0.22486933683175314,2389,{ postinstall : npm dedupe   prepare : npm x -y -- husky@latest install }
+nodemod@3.0.0-rc.5,benign,amalfi_daily_triaged,scoring,WARN,possible_typosquat_requires_review,0.22486933683175314,2389,{ postinstall : npm dedupe   prepare : npm x -y -- husky@latest install }
+nodemod@3.0.0-rc.7,benign,amalfi_daily_triaged,scoring,WARN,possible_typosquat_requires_review,0.22486933683175314,2389,{ postinstall : npm dedupe   prepare : npm x -y -- husky@latest install }
+oidc-lib@2.7.9,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.3233468429005031,63,{ postinstall : node src/install/postinstall.js }
+openmrs-ohri-app@0.6.3-pre.278,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+orbit-db-test-utils@1.2.1,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+orbit-db-test-utils@1.2.1-50bfcca.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+orbit-db-test-utils@1.2.2-35e20a1.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+orbit-db-test-utils@1.2.2-88b3806.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+orbit-db-test-utils@1.2.2-adfb78d.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+orbit-db-test-utils@1.2.2-b719d07.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+pearw@1.0.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+openmrs-ohri-app@0.6.3-pre.279,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+react-dates-sc@0.3.0-beta.9-SNAPSHOT.20170808T084125.644Z,benign,amalfi_basic_corpus,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+robloxapis@1.2.1,benign,amalfi_daily_triaged,scoring,WARN,install_script_requires_review,0.2733333333333334,9,{ postinstall : node postinstall.js }
+shosha@1.0.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+slurplyst-api@0.1.1,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+tanklight-vue@0.1.26,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+testpkg-new@1.0.0,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+thelounge-theme-nord@1.1.4,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+uafrica-ui-framework@1.0.12,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
+web-node-builder@0.0.1,benign,amalfi_daily_triaged,existence:missing_version,BLOCK,nonexistent_version,1,,{}
