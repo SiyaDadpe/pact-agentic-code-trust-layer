@@ -7,6 +7,11 @@ import { execSync } from 'node:child_process';
 const ROOT = new URL('../../..', import.meta.url).pathname;
 const B = ROOT + 'analysis/2026-11-21-after-improvement-testing/';
 const sourceCommit = process.argv[2];
+// The test set is frozen: never overwrite it unless explicitly asked.
+if (fs.existsSync(B + 'data/FREEZE.json') && !process.argv.includes('--rebuild')) {
+  console.error('Amalfi test set is frozen (data/FREEZE.json exists); pass --rebuild to regenerate it');
+  process.exit(0);
+}
 
 function parseCsv(text) {
   const rows = [];

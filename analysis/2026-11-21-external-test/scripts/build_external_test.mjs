@@ -10,6 +10,11 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
 const DIR = path.join(ROOT, 'analysis/2026-11-21-external-test');
+// The test set is frozen: never overwrite it unless explicitly asked.
+if (fs.existsSync(path.join(DIR, 'data/FREEZE.json')) && !process.argv.includes('--rebuild')) {
+  console.error('external test set is frozen (data/FREEZE.json exists); pass --rebuild to regenerate it');
+  process.exit(0);
+}
 const SEED = 20261121;
 const DATADOG_COMMIT = '72c723be547033c558244520524b117c8d71663b';
 const N_MALICIOUS_INTENT = 800;

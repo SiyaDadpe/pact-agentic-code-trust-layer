@@ -9,8 +9,8 @@
     "pact-npm-wrapper": "./scripts/pact-npm-wrapper.sh"
   },
   "scripts": {
-    "test": "node --test",
-    "check": "node --test",
+    "test": "node --test test/",
+    "check": "node --test test/",
     "start": "node ./src/cli.js"
   },
   "engines": {
