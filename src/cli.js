@@ -12,6 +12,7 @@ import {
   readAllowlist,
   removeAllowlistedPackage
 } from './allowlist.js';
+import { canPrompt, reviewWarnings } from './review.js';
 
 function printUsage() {
   console.log([
@@ -29,6 +30,11 @@ function printUsage() {
     '  pact check @scope/name@latest --json',
     '  pact npm install react express',
     '  pact npm install react --dry-run   # report the decision only, never spawns real npm install',
+    '',
+    'Warnings:',
+    '  A WARN asks "[y/N]" once per command when run in a terminal; the answer is remembered per exact version.',
+    '  --allow-warn   approve warnings for this run only (not remembered)',
+    '  --no-prompt    never ask; a WARN stops the command (default when not in a terminal, with --json, or in CI)',
     '  pact sandbox shell',
     '  pact sandbox install react'
   ].join('\n'));
@@ -36,13 +42,21 @@ function printUsage() {
 
 function parseArgs(argv) {
   const args = [...argv];
-  const flags = { json: false, logFile: null, timeoutMs: 5000, dryRun: false };
+  const flags = { json: false, logFile: null, timeoutMs: 5000, dryRun: false, allowWarn: false, noPrompt: false };
   const positionals = [];
 
   for (let index = 0; index < args.length; index += 1) {
     const token = args[index];
     if (token === '--json') {
       flags.json = true;
+      continue;
+    }
+    if (token === '--allow-warn') {
+      flags.allowWarn = true;
+      continue;
+    }
+    if (token === '--no-prompt') {
+      flags.noPrompt = true;
       continue;
     }
     if (token === '--dry-run') {
@@ -167,19 +181,47 @@ async function runCheckCommand(argv) {
 
   const results = await evaluateSpecs(specs, { logFile: flags.logFile, timeoutMs: flags.timeoutMs });
   const aggregate = aggregateAction(results);
-  const output = {
-    decision: aggregate,
-    results: results.map((result) => result.decision)
-  };
-
-  if (flags.json) {
-    console.log(JSON.stringify(output, null, 2));
-  } else {
+  if (!flags.json) {
     printDecisions(results);
-    console.log(`Aggregate: ${aggregate}`);
   }
 
-  process.exitCode = aggregate === 'ALLOW' ? 0 : aggregate === 'WARN' ? 3 : aggregate === 'UNKNOWN' ? 4 : 2;
+  const review = await reviewWarnings(results, aggregate, {
+    interactive: !flags.noPrompt && canPrompt({ json: flags.json }),
+    allowWarn: flags.allowWarn,
+    verb: 'Approve and continue'
+  });
+  const finalAction = review.action;
+
+  if (flags.json) {
+    console.log(JSON.stringify({
+      decision: finalAction,
+      engine_decision: aggregate,
+      results: results.map((result) => result.decision)
+    }, null, 2));
+  } else {
+    printReviewOutcome(review, aggregate);
+    console.log(`Aggregate: ${finalAction}`);
+  }
+
+  process.exitCode = exitCodeFor(finalAction);
+}
+
+function exitCodeFor(action) {
+  return action === 'ALLOW' ? 0 : action === 'WARN' ? 3 : action === 'UNKNOWN' ? 4 : 2;
+}
+
+function printReviewOutcome(review, engineAction) {
+  if (engineAction !== 'WARN') {
+    return;
+  }
+  for (const key of review.remembered) {
+    console.log(`Previously approved by you: ${key}`);
+  }
+  if (review.action === 'ALLOW' && review.approved.length) {
+    console.log(review.asked ? `Approved by you: ${review.approved.join(', ')}` : `Allowed by --allow-warn (this run only): ${review.approved.join(', ')}`);
+  } else if (review.action === 'WARN') {
+    console.log(review.asked ? 'Not approved. Stopped.' : 'Needs review: run in a terminal to approve, or pass --allow-warn.');
+  }
 }
 
 async function runNpmWrapper(argv) {
@@ -208,16 +250,26 @@ async function runNpmWrapper(argv) {
 
   const results = await evaluateSpecs(specs, { logFile: flags.logFile, timeoutMs: flags.timeoutMs });
   const aggregate = aggregateAction(results);
-
-  if (flags.json) {
-    console.log(JSON.stringify({ decision: aggregate, results: results.map((result) => result.decision) }, null, 2));
-  } else {
+  if (!flags.json) {
     printDecisions(results);
-    console.log(`Aggregate: ${aggregate}`);
   }
 
-  if (aggregate !== 'ALLOW') {
-    process.exitCode = aggregate === 'WARN' ? 3 : aggregate === 'UNKNOWN' ? 4 : 2;
+  const review = await reviewWarnings(results, aggregate, {
+    interactive: !flags.noPrompt && canPrompt({ json: flags.json }),
+    allowWarn: flags.allowWarn,
+    verb: 'Install'
+  });
+  const finalAction = review.action;
+
+  if (flags.json) {
+    console.log(JSON.stringify({ decision: finalAction, engine_decision: aggregate, results: results.map((result) => result.decision) }, null, 2));
+  } else {
+    printReviewOutcome(review, aggregate);
+    console.log(`Aggregate: ${finalAction}`);
+  }
+
+  if (finalAction !== 'ALLOW') {
+    process.exitCode = exitCodeFor(finalAction);
     return;
   }
 
