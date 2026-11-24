@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/pact-banner.svg" alt="PACT — Pre-Install Agentic Code Trust Layer" width="900">
+  <img src="docs/pact-banner-v2.svg" alt="PACT — Pre-Install Agentic Code Trust Layer" width="900">
 </p>
 
 # PACT — Pre-Install Agentic Code Trust Layer
@@ -73,7 +73,7 @@ Risk features include hallucination-corpus membership, lifecycle-install scripts
 PACT was tested once on a frozen blind dataset it had never seen: 1,000 malicious packages from DataDog's malicious-software-packages dataset and 946 legitimate npm packages. The case list was frozen before the run; nothing was downloaded or executed. The results below cover the 1,840 packages still available on npm.¹
 
 <p align="center">
-  <img src="docs/metrics.svg" alt="PACT detection performance on a blind test: 99.67% accuracy, 100% precision, 99.33% recall, 100% specificity, 0.9966 F1, 0.9935 MCC" width="100%">
+  <img src="docs/metrics-blind-test.svg" alt="PACT detection performance on a blind test: 99.67% accuracy, 100% precision, 99.33% recall, 100% specificity, 0.9966 F1, 0.9935 MCC" width="100%">
 </p>
 
 | Metric (`BLOCK` positive) | Result |
@@ -87,7 +87,7 @@ PACT was tested once on a frozen blind dataset it had never seen: 1,000 maliciou
 | MCC | 0.9935 |
 
 <p align="center">
-  <img src="docs/confusion-matrix.svg" alt="Confusion matrix: 888 true positives, 6 false negatives, 0 false positives, 946 true negatives" width="100%">
+  <img src="docs/confusion-matrix-blind-test.svg" alt="Confusion matrix: 888 true positives, 6 false negatives, 0 false positives, 946 true negatives" width="100%">
 </p>
 
 On a second blind dataset (Amalfi, ICSE 2022; 1,114 packages), PACT blocked **99.6%** of malicious packages (456 of 458) and no legitimate package still on npm.
