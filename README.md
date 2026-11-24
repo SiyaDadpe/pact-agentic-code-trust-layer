@@ -23,7 +23,8 @@ The project was motivated by **slopsquatting**: AI coding agents frequently hall
 - **Fails closed** — external-service failures produce `UNKNOWN` instead of a silent `ALLOW`.
 - **Install gating** — `pact npm install ...` only forwards to the real npm binary when the aggregate decision is `ALLOW`.
 - **Isolated execution** — an optional Docker sandbox installs into a private, container-only workspace, keeping the host clean.
-- **Evaluated at scale** — **97.09% accuracy / 0.9416 MCC** on a 13,708-case labelled benchmark (see [Evaluation](#evaluation)).
+- **Human review for warnings** — a `WARN` asks once per command (`[y/N]`, default No) when a person is at the terminal; approvals are remembered per exact version. AI agents and CI cannot approve their own installs.
+- **Validated on independent data** — **99.67% accuracy, 100% precision, and no legitimate package blocked** on a frozen blind test PACT had never seen (see [Evaluation](#evaluation)).
 
 ---
 
@@ -57,9 +58,11 @@ Each stage is a separate module under `src/`, so the registry connector, scoring
 | Decision | Condition | Meaning |
 | --- | --- | --- |
 | `ALLOW` | `risk < 0.40` | Proceed with installation. |
-| `WARN` | `0.40 ≤ risk < 0.75` | Stop and require human review. |
+| `WARN` | `0.40 ≤ risk < 0.75`, or a review rule | Ask for human review (`[y/N]`) in a terminal; stop in CI or agent use. |
 | `BLOCK` | `risk ≥ 0.75`, or a direct finding | Refuse installation. |
 | `UNKNOWN` | Required external check failed | Do not make a silent decision. |
+
+Policy rules can block regardless of the score. Two block rules: an install script that runs a randomly named file, and a one-letter lookalike of a popular package that has an install script, both limited to packages with fewer than 10,000 weekly downloads.
 
 Risk features include hallucination-corpus membership, lifecycle-install scripts, name similarity to popular packages, package/version age, dependency anomalies, provenance regressions, and publisher/maintainer changes. `confidence` is computed separately from `risk`: it reflects evidence completeness and signal agreement, not suspicion level.
 
@@ -67,30 +70,29 @@ Risk features include hallucination-corpus membership, lifecycle-install scripts
 
 ## Evaluation
 
-The engine was evaluated against the labelled `NPMAnalysis` malware/benign dataset (7,288 benign and 6,420 malicious package records). Dataset trees were independently verified against the upstream SHA before evaluation; no package archives were downloaded or executed. Full methodology, artifacts, and root-cause analysis are in [`analysis/2026-11-04-npmanalysis-accuracy/`](analysis/2026-11-04-npmanalysis-accuracy/).
+PACT was tested once on a frozen blind dataset it had never seen: 1,000 malicious packages from DataDog's malicious-software-packages dataset and 946 legitimate npm packages. The case list was frozen before the run; nothing was downloaded or executed. The results below cover the 1,840 packages still available on npm.¹
 
 <p align="center">
-  <img src="docs/metrics.svg" alt="PACT detection performance: 97.09% accuracy, 97.63% precision, 96.12% recall, 97.94% specificity, 0.9687 F1, 0.9416 MCC" width="100%">
+  <img src="docs/metrics.svg" alt="PACT detection performance on a blind test: 99.67% accuracy, 100% precision, 99.33% recall, 100% specificity, 0.9966 F1, 0.9935 MCC" width="100%">
 </p>
 
 | Metric (`BLOCK` positive) | Result |
 | --- | ---: |
-| Accuracy | **97.09%** |
-| Precision | 97.63% |
-| Recall | 96.12% |
-| Specificity | 97.94% |
-| F1 | 0.9687 |
-| Balanced accuracy | 97.03% |
-| MCC | 0.9416 |
-| Coverage | 100.00% |
+| Accuracy | **99.67%** |
+| Precision | 100.00% |
+| Recall | 99.33% |
+| Specificity | 100.00% |
+| F1 | 0.9966 |
+| Balanced accuracy | 99.66% |
+| MCC | 0.9935 |
 
 <p align="center">
-  <img src="docs/confusion-matrix.svg" alt="Confusion matrix: 6,171 true positives, 249 false negatives, 150 false positives, 7,138 true negatives" width="100%">
+  <img src="docs/confusion-matrix.svg" alt="Confusion matrix: 888 true positives, 6 false negatives, 0 false positives, 946 true negatives" width="100%">
 </p>
 
-Analysis of the false negatives found that all 235 malicious `ALLOW` cases existed in the registry but were not flagged by OSV — the main remaining gap is authoritative malicious-package intelligence, not registry availability. All 150 benign false positives were caused by registry existence failures (unpublished packages or versions).
+On a second blind dataset (Amalfi, ICSE 2022; 1,114 packages), PACT blocked **99.6%** of malicious packages (456 of 458) and no legitimate package still on npm.
 
-> **Status:** project in progress — accuracy is actively being improved.
+¹ 106 packages labelled malicious are excluded because npm had already neutralized them: 65 replaced with npm's `0.0.1-security` placeholder, and 41 fully unpublished. On those 41, PACT returns `UNKNOWN` and stops the install. Complete results: [`analysis/2026-11-21-external-test/`](analysis/2026-11-21-external-test/).
 
 ---
 
@@ -110,7 +112,7 @@ node ./src/cli.js check lodash express --json
 node ./src/cli.js npm install react
 ```
 
-The wrapper blocks on `BLOCK`, stops on `WARN`, and only forwards to `npm install` on `ALLOW`. Every decision is appended to `pact-decision-engine.jsonl` with its full evidence record.
+The wrapper blocks on `BLOCK`, asks for review on `WARN` (`--allow-warn` approves one run, `--no-prompt` never asks), and only forwards to `npm install` on `ALLOW`. Every decision is appended to `pact-decision-engine.jsonl` with its full evidence record.
 
 A check prints the decision, the risk score, the confidence, and the signals that drove the result:
 

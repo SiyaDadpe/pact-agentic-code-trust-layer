@@ -20,7 +20,7 @@ PACT is a rule-based security gate for npm package installation.
 Its job is to inspect a requested npm package before installation and return one of four decisions:
 
 - `ALLOW`: continue with installation
-- `WARN`: stop and require user review or confirmation
+- `WARN`: ask the user to review (`[y/N]`) when a person is at the terminal; stop otherwise
 - `BLOCK`: refuse the installation
 - `UNKNOWN`: do not make a silent decision because a required external service failed
 
@@ -34,6 +34,26 @@ The main threat model is slopsquatting and related supply-chain risk:
 - A package is known to be malicious in OSV or another advisory source.
 
 The current project intentionally implements the deterministic rule-based engine. Machine learning, autonomous agent recovery, and broad multi-ecosystem support are future work.
+
+### Evaluation results
+
+PACT was tested once on a frozen blind dataset it had never seen: 1,000 malicious packages from DataDog's malicious-software-packages dataset and 946 legitimate npm packages. The case list was frozen before the run; nothing was downloaded or executed. The results below cover the 1,840 packages still available on npm.¹
+
+| Metric (`BLOCK` positive) | Result |
+| --- | ---: |
+| Accuracy | **99.67%** |
+| Precision | 100.00% |
+| Recall | 99.33% |
+| Specificity | 100.00% |
+| F1 | 0.9966 |
+| Balanced accuracy | 99.66% |
+| MCC | 0.9935 |
+
+Confusion matrix: 888 malicious blocked, 6 malicious not blocked, 0 legitimate blocked, 946 legitimate allowed.
+
+On a second blind dataset (Amalfi, ICSE 2022; 1,114 packages), PACT blocked **99.6%** of malicious packages (456 of 458) and no legitimate package still on npm.
+
+¹ 106 packages labelled malicious are excluded because npm had already neutralized them: 65 replaced with npm's `0.0.1-security` placeholder, and 41 fully unpublished. On those 41, PACT returns `UNKNOWN` and stops the install. Complete results: `analysis/2026-11-21-external-test/`.
 
 ---
 
@@ -452,7 +472,7 @@ The extracted feature vector contains:
 | `popularity_risk` | Very low download volume contributes a small risk signal. |
 | `cve_risk` | OSV advisories and severity contribute vulnerability risk. |
 
-Some features are currently calculated but are not part of the weighted trust table. This is intentional room for future tuning. In particular, `release_burstiness_risk` and `executable_flag_risk` are extracted but are not currently assigned a weight in `TRUST_ENGINE_WEIGHTS`.
+Some features are currently calculated but are not part of the weighted trust table. `release_burstiness_risk` is extracted but has no weight in `TRUST_ENGINE_WEIGHTS`. `random_script_filename_risk` (an install script that runs a randomly named file, such as `node 31kbzord.cjs`) has no weight either; it is used directly by a policy rule in Step 9.
 
 ### Step 8: The rule-based trust engine calculates risk
 
@@ -468,8 +488,8 @@ The current weights are:
 
 | Feature | Weight | Interpretation |
 | --- | ---: | --- |
-| `hallucination_corpus_risk` | 0.20 | Strong slopsquatting/hallucination signal. |
-| `lifecycle_script_risk` | 0.18 | Direct install-time execution risk. |
+| `hallucination_corpus_risk` | 0.18 | Strong slopsquatting/hallucination signal. |
+| `lifecycle_script_risk` | 0.17 | Direct install-time execution risk. |
 | `name_similarity_risk` | 0.14 | Typosquat resemblance to a popular package. |
 | `package_age_risk` | 0.10 | New package signal. |
 | `dependency_risk` | 0.10 | Suspicious dependency behavior. |
@@ -477,6 +497,7 @@ The current weights are:
 | `publisher_changed_risk` | 0.06 | Publisher identity change. |
 | `maintainer_changed_risk` | 0.05 | Maintainer identity change. |
 | `version_age_risk` | 0.04 | New version signal. |
+| `executable_flag_risk` | 0.03 | Package declares executable (`bin`) entries. |
 | `unusual_tag_risk` | 0.03 | Non-stable tag signal. |
 | `cve_risk` | 0.01 | Vulnerability signal, separate from maliciousness. |
 | `popularity_risk` | 0.01 | Low popularity signal. |
@@ -504,6 +525,20 @@ risk < 0.40       ALLOW
 ```
 
 The engine also handles the short-circuit decisions from earlier stages. These are intentionally stronger than a weighted score because package nonexistence and known maliciousness are direct findings.
+
+Before the thresholds, policy rules are checked in this order; the first rule that matches decides. "Established" means at least 10,000 weekly downloads.
+
+| Rule | Decision | Condition |
+| --- | --- | --- |
+| `new_package_with_install_script` | `BLOCK` | Install script on a very new package |
+| `install_script_runs_random_filename` | `BLOCK` | Install script runs a randomly named file, and the package is not established |
+| `typosquat_with_install_script` | `BLOCK` | Install script, name one edit from a popular or known-hallucinated name, not established |
+| `install_script_requires_review` | `WARN` | Any other install script |
+| `registered_hallucination_typosquat` | `BLOCK` | Name matches the hallucination corpus, resembles a popular package, and has very low popularity |
+| `hallucination_typosquat_requires_review` | `WARN` | Name matches the hallucination corpus and resembles a popular package |
+| `possible_typosquat_requires_review` | `WARN` | Name one edit from a popular package, not established |
+
+Name similarity is checked against `data/popular-packages.json` (5,000 names). Names shorter than 5 characters count less, because short names are naturally one edit from many popular names.
 
 ### Step 10: Confidence is calculated separately
 
@@ -547,9 +582,12 @@ The log entry keeps a SHA-256 hash of the raw registry response plus selected me
 For `pact npm install ...`:
 
 - if every requested package is `ALLOW`, the wrapper invokes the real npm executable
-- if any package is `WARN`, the wrapper stops
+- if the worst decision is `WARN`, PACT lists every warned package and asks once: `Install anyway? [y/N]`. The default is No. A yes is remembered per exact version (`~/.config/pact/approvals.json`), so the same version is not asked about again, while a new version is checked again
+- if there is no person at the terminal (an AI agent, CI, or `--json`), there is no prompt and a `WARN` stops the install. `--allow-warn` approves warnings for one run without remembering them; `--no-prompt` never asks
 - if any package is `BLOCK`, the wrapper stops
 - if any package is `UNKNOWN`, the wrapper stops
+
+`pact check` asks the same question (`Approve and continue anyway? [y/N]`) but never installs anything.
 
 The aggregate priority is:
 
@@ -695,6 +733,10 @@ The user-facing command dispatcher. It:
 
 It is responsible for workflow control, not for deciding whether a package is trustworthy.
 
+#### `src/review.js`
+
+Human review of `WARN` decisions. It asks one `[y/N]` question per command for all warned packages, only when a person is at the terminal, and remembers approvals per exact version. `BLOCK` and `UNKNOWN` are never offered for approval.
+
 #### `src/orchestrator.js`
 
 The central pipeline coordinator. It calls each stage in order:
@@ -819,6 +861,13 @@ Node's built-in test suite. It currently tests:
 - dry-run behavior without creating `node_modules` or a lockfile
 
 The live package tests call the npm registry and OSV, so network availability can affect test duration or produce `UNKNOWN` results.
+
+#### Other test files
+
+- `test/lifecycle-script-detection.test.js`: install-script patterns such as `node x.js`, `sh <script>`, and `./run.sh`
+- `test/evidence-collection.test.js`: download-count retries and maintainer-change detection
+- `test/step3-policy-rules.test.js`: the policy rules in Step 9
+- `test/warn-review.test.js`: the `[y/N]` review of `WARN` decisions
 
 ---
 
@@ -1006,9 +1055,10 @@ These values do not mean mathematical certainty. The current rule weights and co
 ### Current limitations
 
 - npm is the only fully implemented ecosystem.
-- The popular and hallucination corpora are local starter lists, not a complete 5,000-package production corpus.
-- Publisher and maintainer change features are reserved but not fully derived from historical metadata.
-- Release burstiness and executable-entry features are extracted but not currently weighted in the trust table.
+- The popular-package list holds 5,000 names; the hallucination corpus is still a local starter list.
+- Publisher and maintainer changes are compared only against the previous version, not the full history.
+- Release burstiness is extracted but not currently weighted in the trust table.
+- Legitimate packages with install scripts are often warned; the `[y/N]` review keeps this from blocking work.
 - The PDF generator is intentionally minimal and there is no public CLI report command yet.
 - The normal `pact npm install` wrapper runs npm in its current environment. Use the Docker entrypoint or `pact sandbox install` when the requirement is strict host isolation.
 - The current OSV malicious classifier is heuristic and should be replaced or supplemented with authoritative malicious-package feeds.
@@ -1019,13 +1069,12 @@ These values do not mean mathematical certainty. The current rule weights and co
 
 - Add a dedicated `pact report` command that converts JSONL logs into PDF.
 - Add a proper registry connector interface and PyPI implementation.
-- Expand the package corpus and use popularity/download data from a maintained source.
-- Add historical publisher and maintainer comparison.
+- Keep the popular-package list updated from a maintained source.
+- Extend publisher and maintainer comparison to the full release history.
 - Add dependency graph analysis rather than only direct dependency metadata.
 - Add an ML trust engine behind the same `score()` interface.
-- Add confirmation handling for `WARN` instead of simply stopping.
 - Add an isolated, non-networked or restricted-network Docker policy for installing and observing package scripts.
-- Add benchmark fixtures and calibration metrics for false positives, false negatives, block rate, and hallucination detection rate.
+- Measure hallucination detection rate on a dedicated slopsquatting benchmark.
 
 ---
 

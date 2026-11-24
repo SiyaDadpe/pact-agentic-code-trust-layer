@@ -6,8 +6,8 @@
     </linearGradient>
   </defs>
   <rect x="1" y="1" width="1098" height="558" rx="14" fill="#ffffff" stroke="#d8dee4" stroke-width="2"/>
-  <text x="40" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="#1f2937">Detection performance on 13,708 labelled packages</text>
-  <text x="40" y="82" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#57606a">NPMAnalysis dataset · 7,288 benign · 6,420 malicious · 100% coverage</text>
+  <text x="40" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="#1f2937">Detection performance on a frozen blind test</text>
+  <text x="40" y="82" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" fill="#57606a">DataDog malicious packages + legitimate npm packages · 1,840 packages still on npm · run once</text>
 
   <g stroke="#eaeef2" stroke-width="1">
     <line x1="250" y1="104" x2="250" y2="456"/>
@@ -34,21 +34,21 @@
   </g>
 
   <g fill="url(#bar)">
-    <rect x="250" y="116" width="718" height="30" rx="6"/>
-    <rect x="250" y="176" width="722" height="30" rx="6"/>
-    <rect x="250" y="236" width="711" height="30" rx="6"/>
-    <rect x="250" y="296" width="725" height="30" rx="6"/>
-    <rect x="250" y="356" width="717" height="30" rx="6"/>
-    <rect x="250" y="416" width="697" height="30" rx="6"/>
+    <rect x="250" y="116" width="738" height="30" rx="6"/>
+    <rect x="250" y="176" width="740" height="30" rx="6"/>
+    <rect x="250" y="236" width="735" height="30" rx="6"/>
+    <rect x="250" y="296" width="740" height="30" rx="6"/>
+    <rect x="250" y="356" width="737" height="30" rx="6"/>
+    <rect x="250" y="416" width="735" height="30" rx="6"/>
   </g>
 
   <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#1f6f68">
-    <text x="1002" y="137">97.09</text>
-    <text x="1002" y="197">97.63</text>
-    <text x="1002" y="257">96.12</text>
-    <text x="1002" y="317">97.94</text>
-    <text x="1002" y="377">96.87</text>
-    <text x="1002" y="437">94.16</text>
+    <text x="1002" y="137">99.67</text>
+    <text x="1002" y="197">100.00</text>
+    <text x="1002" y="257">99.33</text>
+    <text x="1002" y="317">100.00</text>
+    <text x="1002" y="377">99.66</text>
+    <text x="1002" y="437">99.35</text>
   </g>
 
   <line x1="40" y1="506" x2="1060" y2="506" stroke="#eaeef2" stroke-width="1"/>
