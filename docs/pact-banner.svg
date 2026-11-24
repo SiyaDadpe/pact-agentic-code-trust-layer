@@ -20,5 +20,5 @@
   <text x="220" y="158" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="29" font-weight="600" fill="#9fe3d8">Pre-Install Agentic Code Trust Layer</text>
   <text x="220" y="198" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="19" fill="#c3d3e0">Explainable npm supply-chain risk decisions before install</text>
   <rect x="960" y="74" width="180" height="44" rx="22" fill="#123f5e" stroke="#3a9bd1" stroke-width="2"/>
-  <text x="1050" y="102" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#9fe3d8">97.09% ACCURACY</text>
+  <text x="1050" y="102" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" font-weight="600" fill="#9fe3d8">99.67% ACCURACY</text>
 </svg>
